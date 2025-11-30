@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TripO - Premium Navigation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e8eef7 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .premium-nav-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            padding: 2.5rem;
+            box-shadow: 
+                0 20px 60px rgba(15, 37, 64, 0.08),
+                0 0 1px rgba(15, 37, 64, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            max-width: 900px;
+            width: 100%;
+        }
+
+        .nav-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .nav-header h2 {
+            font-size: 1.8rem;
+            color: #0f2540;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-header p {
+            font-size: 0.95rem;
+            color: #6b7280;
+            font-weight: 400;
+        }
+
+        .nav-buttons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .nav-premium-btn {
+            position: relative;
+            padding: 1.8rem;
+            border: none;
+            border-radius: 24px;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #0f2540;
+            background: linear-gradient(135deg, #e8f4f8 0%, #f0e8f8 100%);
+            transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+            overflow: hidden;
+            box-shadow: 
+                0 10px 30px rgba(100, 200, 220, 0.15),
+                inset 0 1px 2px rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(100, 200, 220, 0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            text-align: center;
+        }
+
+        .nav-premium-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.3),
+                transparent
+            );
+            transition: left 0.6s ease;
+            z-index: 1;
+        }
+
+        .nav-premium-btn:hover::before {
+            left: 100%;
+        }
+
+        .nav-premium-btn:hover {
+            background: linear-gradient(135deg, #d0ecf5 0%, #e5d9f5 100%);
+            transform: translateY(-8px);
+            box-shadow: 
+                0 20px 50px rgba(100, 200, 220, 0.25),
+                0 0 30px rgba(150, 180, 220, 0.2),
+                inset 0 1px 2px rgba(255, 255, 255, 0.9);
+            border-color: rgba(100, 200, 220, 0.4);
+        }
+
+        .nav-premium-btn:active {
+            transform: translateY(-4px);
+        }
+
+        .nav-icon-wrapper {
+            position: relative;
+            z-index: 2;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #64c8dc 0%, #96b4dc 100%);
+            border-radius: 18px;
+            transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 8px 20px rgba(100, 200, 220, 0.3);
+        }
+
+        .nav-premium-btn:hover .nav-icon-wrapper {
+            background: linear-gradient(135deg, #4db8d0 0%, #7a9ade 100%);
+            box-shadow: 0 12px 30px rgba(100, 200, 220, 0.4);
+            transform: scale(1.1) rotate(-5deg);
+        }
+
+        .nav-icon-wrapper i {
+            font-size: 1.8rem;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-button-text {
+            position: relative;
+            z-index: 2;
+        }
+
+        .nav-button-title {
+            display: block;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #0f2540;
+            margin-bottom: 0.25rem;
+            letter-spacing: -0.3px;
+        }
+
+        .nav-button-desc {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 400;
+            color: #64a0b0;
+            line-height: 1.3;
+        }
+
+        .nav-premium-btn:hover .nav-button-title {
+            color: #0f2540;
+        }
+
+        .nav-premium-btn:hover .nav-button-desc {
+            color: #4db8d0;
+        }
+
+        /* Variant button styles */
+        .nav-premium-btn.variant-1 {
+            background: linear-gradient(135deg, #f5e6f0 0%, #e8f4f8 100%);
+        }
+
+        .nav-premium-btn.variant-1:hover {
+            background: linear-gradient(135deg, #f0d6eb 0%, #d0ecf5 100%);
+        }
+
+        .nav-premium-btn.variant-1 .nav-icon-wrapper {
+            background: linear-gradient(135deg, #e67e9c 0%, #64c8dc 100%);
+        }
+
+        .nav-premium-btn.variant-1:hover .nav-icon-wrapper {
+            background: linear-gradient(135deg, #dd6a8b 0%, #4db8d0 100%);
+        }
+
+        .nav-premium-btn.variant-2 {
+            background: linear-gradient(135deg, #f0f5e8 0%, #e8f4f8 100%);
+        }
+
+        .nav-premium-btn.variant-2:hover {
+            background: linear-gradient(135deg, #e6f0d0 0%, #d0ecf5 100%);
+        }
+
+        .nav-premium-btn.variant-2 .nav-icon-wrapper {
+            background: linear-gradient(135deg, #1f6f52 0%, #64c8dc 100%);
+        }
+
+        .nav-premium-btn.variant-2:hover .nav-icon-wrapper {
+            background: linear-gradient(135deg, #1a5a44 0%, #4db8d0 100%);
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .premium-nav-container {
+                padding: 1.8rem;
+            }
+
+            .nav-header h2 {
+                font-size: 1.5rem;
+            }
+
+            .nav-buttons-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .nav-premium-btn {
+                padding: 1.5rem;
+            }
+
+            .nav-icon-wrapper {
+                width: 52px;
+                height: 52px;
+            }
+
+            .nav-icon-wrapper i {
+                font-size: 1.6rem;
+            }
+
+            .nav-button-title {
+                font-size: 1rem;
+            }
+        }
+
+        /* Subtle animation on page load */
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .nav-premium-btn {
+            animation: slideInUp 0.6s ease-out forwards;
+        }
+
+        .nav-premium-btn:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .nav-premium-btn:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .nav-premium-btn:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+    </style>
+</head>
+<body>
+    <div class="premium-nav-container">
+        <div class="nav-header">
+            <h2>TripO Navigation</h2>
+            <p>Explore Our Premium Travel Services</p>
+        </div>
+
+        <div class="nav-buttons-grid">
+            <!-- Dağ Avadanlıqları -->
+            <button class="nav-premium-btn variant-1" aria-label="Dağ Avadanlıqları">
+                <div class="nav-icon-wrapper">
+                    <i class="fas fa-backpack"></i>
+                </div>
+                <div class="nav-button-text">
+                    <span class="nav-button-title">Dağ Avadanlıqları</span>
+                    <span class="nav-button-desc">Trekking Gear & Equipment</span>
+                </div>
+            </button>
+
+            <!-- Geyim Tövsiyəsi -->
+            <button class="nav-premium-btn" aria-label="Geyim Tövsiyəsi">
+                <div class="nav-icon-wrapper">
+                    <i class="fas fa-shirt"></i>
+                </div>
+                <div class="nav-button-text">
+                    <span class="nav-button-title">Geyim Tövsiyəsi</span>
+                    <span class="nav-button-desc">Outfit Selection & Weather</span>
+                </div>
+            </button>
+
+            <!-- Səyahət Təhlükəsizliyi -->
+            <button class="nav-premium-btn variant-2" aria-label="Səyahət Təhlükəsizliyi">
+                <div class="nav-icon-wrapper">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <div class="nav-button-text">
+                    <span class="nav-button-title">Səyahət Təhlükəsizliyi</span>
+                    <span class="nav-button-desc">Safety Guidelines & Tips</span>
+                </div>
+            </button>
+        </div>
+    </div>
+</body>
+</html>

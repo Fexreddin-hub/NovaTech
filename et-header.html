@@ -1,0 +1,193 @@
+<!-- Reusable Header Component: EliteTravel -->
+<header class="et-header">
+  <div class="et-header-inner">
+    <!-- Left: Logo -->
+    <a href="index.html" class="et-logo">
+      <svg width="32" height="24" viewBox="0 0 32 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M2 20L10 4l7 14 6-9 7 15H2z" fill="#FFD600"/>
+      </svg>
+      <span class="et-logo-text">Elite<span class="et-logo-accent">Travel</span></span>
+    </a>
+    <!-- Center: Navigation -->
+    <nav class="et-nav">
+      <ul>
+        <li><a href="index.html" class="active">Ana Səhifə</a></li>
+        <li><a href="mountain-equipment.html">Avadanlıq</a></li>
+        <li><a href="outfit.html">Geyim Seçici</a></li>
+        <li><a href="safety.html">Təhlükəsizlik</a></li>
+      </ul>
+    </nav>
+    <!-- Right: Actions -->
+    <div class="et-actions">
+      <button class="et-theme-toggle" title="Tema dəyiş">
+        <i class="fas fa-sun"></i>
+        <i class="fas fa-moon"></i>
+      </button>
+      <div class="et-lang-selector">
+        <button class="et-lang-btn">AZ</button>
+        <!-- Language dropdown can be added here -->
+      </div>
+      <a href="auth.html" class="et-cta-btn">Səyahətə Başla</a>
+    </div>
+    <!-- Mobile menu toggle -->
+    <button class="et-mobile-menu-toggle" aria-label="Menunu aç">
+      <i class="fas fa-bars"></i>
+    </button>
+  </div>
+</header>
+
+<!-- Component Styles -->
+<style>
+.et-header {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+  background: rgba(15,37,64,0.82);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 4px 24px rgba(15,37,64,0.13);
+  border-radius: 0 0 18px 18px;
+}
+.et-header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 1.5rem;
+  min-height: 72px;
+}
+.et-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  text-decoration: none;
+}
+.et-logo-text {
+  font-family: 'Poppins', Inter, Arial, sans-serif;
+  font-weight: 700;
+  font-size: 1.45rem;
+  color: #fff;
+  letter-spacing: 0.5px;
+}
+.et-logo-accent {
+  color: #FFD600;
+  font-weight: 700;
+}
+.et-nav ul {
+  display: flex;
+  gap: 2.2rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.et-nav a {
+  color: #f5f6fa;
+  text-decoration: none;
+  font-size: 1.08rem;
+  font-weight: 500;
+  position: relative;
+  padding: 2px 0;
+  transition: color 0.18s;
+}
+.et-nav a.active {
+  color: #FFD600;
+}
+.et-nav a.active::after {
+  content: '';
+  display: block;
+  height: 3px;
+  width: 100%;
+  background: linear-gradient(90deg,#FFD600 0%, #fff 100%);
+  box-shadow: 0 0 8px #FFD600, 0 0 16px #fff;
+  border-radius: 2px;
+  margin-top: 4px;
+  animation: et-glow 1.2s infinite alternate;
+}
+@keyframes et-glow {
+  from { box-shadow: 0 0 8px #FFD600, 0 0 16px #fff; }
+  to { box-shadow: 0 0 16px #FFD600, 0 0 32px #fff; }
+}
+.et-nav a:hover {
+  color: #FFD600;
+}
+.et-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+}
+.et-theme-toggle {
+  background: none;
+  border: none;
+  color: #FFD600;
+  font-size: 1.25rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  transition: color 0.18s;
+}
+.et-theme-toggle:hover { color: #fff; }
+.et-lang-selector {
+  position: relative;
+}
+.et-lang-btn {
+  background: rgba(255,255,255,0.08);
+  color: #FFD600;
+  border: none;
+  border-radius: 8px;
+  padding: 0.4rem 1rem;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.18s;
+}
+.et-lang-btn:hover { background: #FFD600; color: #0f2540; }
+.et-cta-btn {
+  background: linear-gradient(90deg,#FFD600 0%, #fda085 100%);
+  color: #0f2540;
+  font-weight: 700;
+  border-radius: 14px;
+  padding: 0.7rem 1.5rem;
+  font-size: 1.08rem;
+  text-decoration: none;
+  box-shadow: 0 2px 12px #FFD60044;
+  border: none;
+  transition: background 0.18s, color 0.18s;
+}
+.et-cta-btn:hover {
+  background: linear-gradient(90deg,#fda085 0%, #FFD600 100%);
+  color: #fff;
+}
+.et-mobile-menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: #FFD600;
+  font-size: 1.7rem;
+  margin-left: 1.2rem;
+  cursor: pointer;
+}
+@media (max-width: 900px) {
+  .et-header-inner {
+    flex-wrap: wrap;
+    gap: 1.2rem;
+    padding: 0.5rem 0.7rem;
+  }
+  .et-nav ul {
+    gap: 1.2rem;
+  }
+}
+@media (max-width: 700px) {
+  .et-header-inner {
+    flex-direction: row;
+    min-height: 62px;
+  }
+  .et-nav {
+    display: none;
+  }
+  .et-mobile-menu-toggle {
+    display: block;
+  }
+}
+</style>

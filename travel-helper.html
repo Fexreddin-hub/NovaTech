@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Səyahət Köməkçisi | TripO</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .helper-main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2.5rem 1rem 2rem 1rem;
+    }
+    .helper-title {
+      font-size: 2.1rem;
+      font-weight: 700;
+      color: #d46f00;
+      margin-bottom: 0.7rem;
+      text-align: center;
+    }
+    .helper-desc {
+      color: #1f6f52;
+      font-size: 1.15rem;
+      margin-bottom: 2.2rem;
+      text-align: center;
+    }
+    .helper-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px,1fr));
+      gap: 2rem;
+      margin-top: 2.2rem;
+    }
+    .helper-card {
+      background: rgba(255,255,255,0.92);
+      border-radius: 18px;
+      box-shadow: 0 8px 32px #fda08544;
+      padding: 2rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      transition: transform 0.22s, box-shadow 0.22s;
+      position: relative;
+      cursor: pointer;
+      border: 2px solid #fda08522;
+    }
+    .helper-card:hover {
+      transform: translateY(-8px) scale(1.04);
+      box-shadow: 0 16px 48px #fda08588;
+      background: linear-gradient(120deg,#fda085 0%, #f6d365 100%);
+      border-color: #d46f00;
+    }
+    .helper-card-icon {
+      font-size: 2.3rem;
+      margin-bottom: 1.1rem;
+      color: #fff;
+      background: linear-gradient(120deg,#fda085 0%, #f6d365 100%);
+      border-radius: 50%;
+      padding: 0.7rem 1.1rem;
+      box-shadow: 0 2px 12px #fda08544;
+      border: 2px solid #fff3e0;
+    }
+    .helper-card-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #d46f00;
+      margin-bottom: 0.7rem;
+      letter-spacing: 0.5px;
+      text-shadow: 0 2px 12px #fda08522;
+    }
+    .helper-card-desc {
+      font-size: 1.08rem;
+      color: #1f6f52;
+      margin-bottom: 1.1rem;
+      font-weight: 500;
+      text-shadow: 0 1px 8px #fda08544;
+    }
+    @media (max-width: 700px) {
+      .helper-title { font-size: 1.5rem; }
+      .helper-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+    <header>
+    <div class="container header-container">
+      <a href="index.html" class="logo"><svg width="28" height="20" viewBox="0 0 24 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right:8px"><path d="M1 14L8 3l5 9 4-6 5 9H1z" fill="#d4af37"/></svg>Elite<span>Travel</span></a>
+      <nav>
+        <ul>
+          <li><a href="index.html" class="active">Ana Səhifə</a></li>
+          <li><a href="mountain-equipment.html">Avadanlıq</a></li>
+          <li><a href="outfit.html">Geyim Seçici</a></li>
+          <li><a href="safety.html">Təhlükəsizlik</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <button id="themeToggleHeader" class="btn btn-outline" aria-pressed="false" title="Gecə rejimi" data-theme-toggle>
+          <i class="fas fa-moon"></i>
+        </button>
+        <div class="language-selector" style="position:relative;">
+          <button id="langSelectorBtn" class="btn btn-outline" aria-label="Dil seçin"><i class="fas fa-globe"></i> <span id="currentLang">AZ</span></button>
+          <div id="langSelectorMenu" class="language-menu" style="display:none; right:0;">
+            <button class="lang-option" data-lang="AZ">AZ</button>
+            <button class="lang-option" data-lang="EN">EN</button>
+            <button class="lang-option" data-lang="TR">TR</button>
+          </div>
+        </div>
+        <a href="auth.html" class="btn btn-primary start-journey-btn">
+          <i class="fas fa-rocket"></i> Səyahətə Başla
+        </a>
+      </div>
+    </div>
+    </header>
+  <main class="helper-main">
+    <div class="helper-title">Səyahət Köməkçisi</div>
+    <div class="helper-desc">Səyahətiniz üçün ən yaxşı məsləhətlər, avadanlıq və təhlükəsizlik tövsiyələri. Hər şey bir yerdə!</div>
+    <div class="helper-grid">
+      <div class="helper-card">
+        <div class="helper-card-icon"><i class="fas fa-map-marked-alt"></i></div>
+        <div class="helper-card-title">Marşrut Planlayıcı</div>
+        <div class="helper-card-desc">Səyahətiniz üçün ən yaxşı marşrutları seçin və xəritədə baxın.</div>
+      </div>
+      <div class="helper-card">
+        <div class="helper-card-icon"><i class="fas fa-cloud-sun"></i></div>
+        <div class="helper-card-title">Hava Proqnozu</div>
+        <div class="helper-card-desc">Dağlıq bölgələr üçün aktual hava məlumatları və tövsiyələr.</div>
+      </div>
+      <div class="helper-card">
+        <div class="helper-card-icon"><i class="fas fa-shield-alt"></i></div>
+        <div class="helper-card-title">Təhlükəsizlik Məsləhətləri</div>
+        <div class="helper-card-desc">Səyahət zamanı təhlükəsizliyinizi artırmaq üçün vacib məsləhətlər.</div>
+      </div>
+      <div class="helper-card">
+        <div class="helper-card-icon"><i class="fas fa-hiking"></i></div>
+        <div class="helper-card-title">Avadanlıq Seçimi</div>
+        <div class="helper-card-desc">Dağ səyahəti üçün lazım olan avadanlıq və geyim tövsiyələri.</div>
+      </div>
+      <div class="helper-card">
+        <div class="helper-card-icon"><i class="fas fa-phone-alt"></i></div>
+        <div class="helper-card-title">Fövqəladə Əlaqə</div>
+        <div class="helper-card-desc">Təcili yardım və əlaqə nömrələri bir kliklə.</div>
+      </div>
+    </div>
+  </main>
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-column">
+        <h4>EliteTravel</h4>
+        <p>Dünyada ən yaxşı səyahət təcrübəsi</p>
+      </div>
+    </div>
+  </footer>
+  <script src="main.js"></script>
+</body>
+</html>

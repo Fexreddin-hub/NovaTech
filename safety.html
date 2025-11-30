@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Səyahət Təhlükəsizliyi - TripO</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e8eef7 100%);
+            color: #0f2540;
+        }
+
+        header {
+            background: rgba(15, 37, 64, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #d4af37;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 1.5rem;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #64c8dc;
+        }
+
+        .hero-banner {
+            /* Removed external background image per request; use clean gradient */
+            background: linear-gradient(135deg, #0f2540 0%, #1f6f52 100%);
+            padding: 5rem 2rem;
+            text-align: center;
+            color: white;
+        }
+
+        .hero-banner h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-banner p {
+            font-size: 1.1rem;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .safety-intro {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 28px;
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+            border: 1px solid rgba(100, 200, 220, 0.2);
+            text-align: center;
+        }
+
+        .intro-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #0f2540;
+        }
+
+        .intro-text {
+            font-size: 1rem;
+            color: #6b7280;
+            line-height: 1.8;
+        }
+
+        .safety-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .safety-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 28px;
+            padding: 2.5rem;
+            border: 2px solid rgba(200, 150, 80, 0.2);
+            box-shadow: 0 12px 35px rgba(100, 200, 220, 0.08);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+        }
+
+        .safety-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(100, 200, 220, 0.15);
+            border-color: rgba(200, 150, 80, 0.4);
+        }
+
+        .safety-icon {
+            width: 70px;
+            height: 70px;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #f5a962 0%, #e67e9c 100%);
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            box-shadow: 0 8px 20px rgba(245, 169, 98, 0.2);
+        }
+
+        .safety-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+            color: #0f2540;
+        }
+
+        .safety-desc {
+            font-size: 0.95rem;
+            color: #6b7280;
+            line-height: 1.7;
+        }
+
+        .steps-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 32px;
+            padding: 3rem;
+            border: 1px solid rgba(100, 200, 220, 0.2);
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 2.5rem;
+            text-align: center;
+            color: #0f2540;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .step-item {
+            background: linear-gradient(135deg, #f0f8ff 0%, #fff5f0 100%);
+            border-radius: 24px;
+            padding: 2rem;
+            text-align: center;
+            border: 1px solid rgba(100, 200, 220, 0.1);
+            transition: all 0.3s;
+        }
+
+        .step-item:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 15px 35px rgba(100, 200, 220, 0.15);
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            margin: 0 auto 1rem;
+            background: linear-gradient(135deg, #64c8dc 0%, #96b4dc 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        .step-text {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #0f2540;
+        }
+
+        .emergency-section {
+            background: linear-gradient(135deg, rgba(200, 150, 80, 0.1) 0%, rgba(230, 126, 156, 0.1) 100%);
+            border-radius: 28px;
+            padding: 3rem;
+            border: 2px solid rgba(200, 150, 80, 0.3);
+        }
+
+        .emergency-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: #0f2540;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .emergency-icon {
+            font-size: 2rem;
+        }
+
+        .emergency-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .emergency-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 20px;
+            border-left: 4px solid #f5a962;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .emergency-item strong {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #0f2540;
+        }
+
+        .emergency-item p {
+            font-size: 0.9rem;
+            color: #6b7280;
+        }
+
+        /* CTA links to related pages */
+        .cta-links { display:flex; gap:1rem; margin: 1.5rem 0; flex-wrap:wrap; }
+        .cta-links .cta-btn { display:inline-flex; align-items:center; gap:0.6rem; padding:0.7rem 1rem; border-radius:10px; font-weight:700; text-decoration:none; color:#0f2540; background:linear-gradient(90deg,#fef7ef,#fff); border:1px solid rgba(15,37,64,0.06); box-shadow:0 8px 20px rgba(11,28,50,0.04); transition:transform .18s ease, box-shadow .18s ease; }
+        .cta-links .cta-btn:hover { transform: translateY(-4px); box-shadow:0 18px 40px rgba(11,28,50,0.08); }
+
+        @media (max-width: 768px) {
+            .hero-banner h1 {
+                font-size: 2rem;
+            }
+
+            .container {
+                padding: 2rem 1rem;
+            }
+
+            .safety-card {
+                padding: 2rem;
+            }
+
+            .steps-section {
+                padding: 2rem;
+            }
+
+            .emergency-section {
+                padding: 2rem;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .safety-card {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        .safety-card:nth-child(1) { animation-delay: 0.1s; }
+        .safety-card:nth-child(2) { animation-delay: 0.2s; }
+        .safety-card:nth-child(3) { animation-delay: 0.3s; }
+        /* Infographic styles (refined for cleaner layout) */
+        .infographic {
+            margin: 2rem auto 1.5rem;
+            padding: 1.25rem;
+            background: #ffffff;
+            border-radius: 14px;
+            border: 1px solid rgba(15,37,64,0.04);
+            box-shadow: 0 8px 28px rgba(11,28,50,0.04);
+            max-width: 1100px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+        .infographic-grid { display:grid; grid-template-columns: repeat(4, 2fr); gap: 1rem;  height:fit-content ; }
+        .info-item { display:flex; flex-direction:column; align-items:center; text-align:center; padding:1rem; border-radius:10px; transition: transform 220ms ease, box-shadow 220ms ease; }
+        .info-item:hover { transform: translateY(-6px); box-shadow: 0 18px 40px rgba(11,28,50,0.06); }
+        .info-icon { width:72px; height:72px; border-radius:999px; display:flex; align-items:center; justify-content:center; font-size:1.6rem; margin-bottom:0.6rem; box-shadow: 0 6px 18px rgba(11,28,50,0.05); border: 1px solid rgba(15,37,64,0.04); }
+        .info-title { font-weight:700; color: #0f2540; margin-bottom:0.2rem; font-size:1rem; }
+        .info-sub { font-size:0.9rem; color:#6b7280; line-height:1.3; max-width:160px; }
+        .info-icon.eq1 { background: linear-gradient(135deg,#f5a962,#e67e9c); color:#fff; }
+        .info-icon.eq2 { background: linear-gradient(135deg,#64c8dc,#96b4dc); color:#fff; }
+        .info-icon.eq3 { background: linear-gradient(135deg,#8fd694,#3fa76b); color:#fff; }
+        .info-icon.eq4 { background: linear-gradient(135deg,#f6d365,#fda085); color:#fff; }
+        .info-icon.eq5 { background: linear-gradient(135deg,#a29bfe,#6a7dff); color:#fff; }
+
+        @media (max-width: 1100px) {
+            .infographic-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+        @media (max-width: 680px) {
+            .infographic-grid { grid-template-columns: repeat(1, 1fr); }
+            .info-item { padding: 0.9rem 0.6rem; }
+            .info-sub { max-width: none; }
+        }
+        /* Click-to-expand detail panel */
+        .info-detail {
+            width:100%;
+            max-width:320px;
+            margin-top:0.6rem;
+            padding:0.8rem 1rem;
+            border-radius:10px;
+            background: linear-gradient(180deg, rgba(250,250,252,1), rgba(245,247,250,1));
+            border: 1px solid rgba(15,37,64,0.04);
+            color: #0f2540;
+            font-size:0.92rem;
+            line-height:1.35;
+            box-shadow: 0 10px 30px rgba(11,28,50,0.04);
+            overflow: hidden;
+            max-height: 0;
+            transition: max-height 300ms ease, padding 300ms ease;
+        }
+        .info-detail.open { max-height: 240px; padding:0.8rem 1rem; }
+        .header-container { display: flex; align-items: center; justify-content: flex-start; gap: 3rem; padding: 0 3.5rem 0 9.5rem; position: relative; min-height: 96px; }
+        .logo { font-size: 2rem; font-weight: 700; color: var(--navy); display:flex; align-items:center; transition: transform 0.25s ease, font-size 0.25s ease; text-decoration: none; letter-spacing: 0.5px; margin-left: -6rem; }
+        .logo:hover { text-decoration: none; }
+        .logo span { color: var(--gold); }
+        nav { flex: 1; margin-left: -2rem; }
+        nav ul { display:flex; list-style:none; justify-content:flex-start; margin-left:0.5rem; }
+        nav ul li { margin-left: 2rem; }
+        nav ul li a { color: var(--navy); text-decoration: none; font-weight: 500; transition: all 0.3s; position: relative; padding: 2px 0; font-size: 1rem; white-space: nowrap; }
+        nav ul li a::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height:2px; background-color: var(--gold); transition: width 0.3s; }
+        nav ul li a:hover::after, nav ul li a.active::after { width: 100%; }
+        .header-actions { display:flex; align-items:center; gap:1.5rem; order:3; }
+        .language-selector { margin-left:0; display:flex; align-items:center; }
+        header .right-actions { position: absolute; right: -8.5rem; top: 40%; transform: translateY(-50%); display:flex; flex-direction:row; gap:1.2rem; align-items:center; }
+
+        /* Fix button sizing so they don't grow horizontally; keep stacked vertically */
+        .right-actions .btn { width:120px; justify-content:center; }
+         @media (max-width:768px) {
+            .right-actions { position: static; transform: none; flex-direction: row; gap: 0.5rem; }
+            .right-actions .btn { width: auto; }
+        }
+        .language-menu { position: absolute; top: 100%; right: 0; background: var(--white); border: 1px solid rgba(15,37,64,0.1); border-radius: 8px; min-width: 150px; display: none; flex-direction: column; z-index: 999; box-shadow: 0 8px 20px rgba(11,28,50,0.06); }
+        .language-selector:hover .language-menu, .language-menu.show { display: flex; }
+        .lang-option { background: transparent; border: none; padding: 0.75rem 1rem; text-align: left; cursor: pointer; color: var(--navy); font-weight: 500; transition: all 0.2s; font-size: 0.9rem; }
+        .lang-option:hover { background: rgba(15,37,64,0.05); color: var(--gold); }
+        .lang-option.active { background: rgba(212,175,55,0.1); color: var(--gold); }
+        body.dark-mode .language-menu { background: var(--white); border-color: rgba(255,255,255,0.1); }
+        .btn { padding:0.5rem 1rem; border-radius:30px; font-weight:600; cursor:pointer; transition: all 0.3s; border:none; display:inline-flex; align-items:center; gap:8px; text-decoration: none; font-size:0.9rem; }
+        .btn-primary { background: var(--accent); color: #2b2b2b; box-shadow: 0 8px 20px rgba(253,160,133,0.12); border: none; text-decoration: none; }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 18px 40px #fda0851f; text-decoration: none; }
+        .btn-outline { background-color: transparent; color: var(--navy); border:2px solid rgba(15,37,64,0.08); text-decoration: none; }
+        .btn-outline:hover { background-color: var(--navy); color: var(--white); border-color: transparent; text-decoration: none; }
+        .hero { height: 100vh; background: linear-gradient(rgba(3,37,65,0.45), rgba(3,37,65,0.25)), url('https://images.unsplash.com/photo-1501785888041-af3ef285b470?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80'); background-size: cover; background-position:center; display:flex; align-items:center; color:var(--white); text-align:center; padding-top: calc(var(--header-height) + 10px); }
+        .hero-content { max-width:800px; margin:0 auto; animation: fadeIn 1s ease-out; }
+        .header-container { display: flex; align-items: center; justify-content: flex-start; gap: 3rem; padding: 0 3.5rem 0 9.5rem; position: relative; min-height: 96px; }
+        .logo { font-size: 2rem; font-weight: 700; color: var(--navy); display:flex; align-items:center; transition: transform 0.25s ease, font-size 0.25s ease; text-decoration: none; letter-spacing: 0.5px; margin-left: -6rem; }
+        .logo:hover { text-decoration: none; }
+        .logo span { color: var(--gold); }
+        nav { flex: 1; margin-left: -2rem; }
+        nav ul { display:flex; list-style:none; justify-content:flex-start; margin-left:0.5rem; }
+        nav ul li { margin-left: 2rem; }
+        nav ul li a { color: var(--navy); text-decoration: none; font-weight: 500; transition: all 0.3s; position: relative; padding: 2px 0; font-size: 1rem; white-space: nowrap; }
+        nav ul li a::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height:2px; background-color: var(--gold); transition: width 0.3s; }
+        nav ul li a:hover::after, nav ul li a.active::after { width: 100%; }
+        .header-actions { display:flex; align-items:center; gap:1.5rem; order:3; }
+        .language-selector { margin-left:0; display:flex; align-items:center; }
+        header .right-actions { position: absolute; right: -8.5rem; top: 40%; transform: translateY(-50%); display:flex; flex-direction:row; gap:1.2rem; align-items:center; }
+
+        /* Fix button sizing so they don't grow horizontally; keep stacked vertically */
+        .right-actions .btn { width:120px; justify-content:center; }
+
+        /* Responsive: on small screens place them in a row and allow auto width */
+        @media (max-width:768px) {
+            .right-actions { position: static; transform: none; flex-direction: row; gap: 0.5rem; }
+            .right-actions .btn { width: auto; }
+        }
+        .language-menu { position: absolute; top: 100%; right: 0; background: var(--white); border: 1px solid rgba(15,37,64,0.1); border-radius: 8px; min-width: 150px; display: none; flex-direction: column; z-index: 999; box-shadow: 0 8px 20px rgba(11,28,50,0.06); }
+        .language-selector:hover .language-menu, .language-menu.show { display: flex; }
+        .lang-option { background: transparent; border: none; padding: 0.75rem 1rem; text-align: left; cursor: pointer; color: var(--navy); font-weight: 500; transition: all 0.2s; font-size: 0.9rem; }
+        .lang-option:hover { background: rgba(15,37,64,0.05); color: var(--gold); }
+        .lang-option.active { background: rgba(212,175,55,0.1); color: var(--gold); }
+        body.dark-mode .language-menu { background: var(--white); border-color: rgba(255,255,255,0.1); }
+        .btn { padding:0.5rem 1rem; border-radius:30px; font-weight:600; cursor:pointer; transition: all 0.3s; border:none; display:inline-flex; align-items:center; gap:8px; text-decoration: none; font-size:0.9rem; }
+        .btn-primary { background: var(--accent); color: #2b2b2b; box-shadow: 0 8px 20px rgba(253,160,133,0.12); border: none; text-decoration: none; }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 18px 40px #fda0851f; text-decoration: none; }
+        .btn-outline { background-color: transparent; color: var(--navy); border:2px solid rgba(15,37,64,0.08); text-decoration: none; }
+        .konum-btn {
+                    display: inline-block;
+                    background: linear-gradient(90deg,#fda085 0%, #f6d365 100%);
+                    color: #fff;
+                    border: none;
+                    border-radius: 7px;
+                    padding: 0.32rem 0.8rem;
+                    font-size: 0.92rem;
+                    font-weight: 600;
+                    box-shadow: 0 2px 8px rgba(253,160,133,0.13);
+                    cursor: pointer;
+                    transition: transform 0.22s cubic-bezier(.2,.9,.2,1), box-shadow 0.22s;
+                    text-decoration: none;
+                    margin-top: 0.4rem;
+                }
+                .konum-btn:hover {
+                    transform: translateY(-4px) scale(1.07);
+                    box-shadow: 0 8px 24px #fda08544;
+                    background: linear-gradient(90deg,#fda085 0%, #f6d365 100%);
+                }
+        :root {
+            --navy: #0f2540;
+            --forest: #1f6f52;
+            --cream: #fef7ef;
+            --gold: #d4af37;
+            --stone: #6b7280;
+            --white: #ffffff;
+            --accent: linear-gradient(90deg,#f6d365 0%, #fda085 100%);
+            --glass: rgba(255,255,255,0.7);
+            --header-height: 96px;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; }
+        body.dark-mode header { background: rgba(8,16,24,0.72); box-shadow: 0 8px 30px rgba(0,0,0,0.6); }
+        body.dark-mode .hero { color: var(--navy); }
+        body.dark-mode .feature-card, body.dark-mode .destination-card, body.dark-mode .tour-card, body.dark-mode .contact-form, body.dark-mode .stat-card { background: var(--white); border-color: rgba(255,255,255,0.03); }
+        /* darker warm / flesh-yellowish tint for footer in dark mode */
+            body.dark-mode footer { background: linear-gradient(180deg, #071428 0%, #1f6f52 100%); color: #e6eef8; border-top: 2px solid #fda085; }
+        body.dark-mode .footer-column h3 { color: var(--gold); }
+        body.dark-mode .social-icons a { background-color: rgba(255,255,255,0.08); color: #e0e0e0; }
+        body.dark-mode .social-icons a:hover { background-color: var(--gold); color: var(--navy); }
+        body.dark-mode .copyright { color: rgba(255,255,255,0.3); border-top-color: rgba(255,255,255,0.08); }
+        body.dark-mode .btn-outline { color: var(--navy); border-color: rgba(255,255,255,0.06); }
+        body.dark-mode .btn-primary { box-shadow: 0 8px 20px rgba(0,0,0,0.12); }
+        header { background: rgba(255,255,255,0.92); backdrop-filter: blur(8px); padding: 0; position: fixed; top: 0; width: 100%; z-index: 1000; box-shadow: 0 4px 18px rgba(12, 35, 64, 0.08); transition: all 0.28s ease; height: 96px; border-radius: 0 0 18px 18px; }
+        /* Move header contents 2rem to the right on the homepage (applied once more) */
+        .header-container { display: flex; align-items: center; justify-content: flex-start; gap: 3rem; padding: 0 3.5rem 0 9.5rem; position: relative; min-height: 96px; }
+        .logo { font-size: 2rem; font-weight: 700; color: var(--navy); display:flex; align-items:center; transition: transform 0.25s ease, font-size 0.25s ease; text-decoration: none; letter-spacing: 0.5px; margin-left: -6rem; }
+        .logo:hover { text-decoration: none; }
+        .logo span { color: var(--gold); }
+        nav { flex: 1; margin-left: -2rem; }
+        nav ul { display:flex; list-style:none; justify-content:flex-start; margin-left:0.5rem; }
+        nav ul li { margin-left: 2rem; }
+        nav ul li a { color: var(--navy); text-decoration: none; font-weight: 500; transition: all 0.3s; position: relative; padding: 2px 0; font-size: 1rem; white-space: nowrap; }
+        nav ul li a::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height:2px; background-color: var(--gold); transition: width 0.3s; }
+        nav ul li a:hover::after, nav ul li a.active::after { width: 100%; }
+        .header-actions { display:flex; align-items:center; gap:1.5rem; order:3; }
+        .language-selector { margin-left:0; display:flex; align-items:center; }
+        header .right-actions { position: absolute; right: -8.5rem; top: 40%; transform: translateY(-50%); display:flex; flex-direction:row; gap:1.2rem; align-items:center; }
+
+        /* Fix button sizing so they don't grow horizontally; keep stacked vertically */
+        .right-actions .btn { width:120px; justify-content:center; }
+
+        /* Responsive: on small screens place them in a row and allow auto width */
+        @media (max-width:768px) {
+            .right-actions { position: static; transform: none; flex-direction: row; gap: 0.5rem; }
+            .right-actions .btn { width: auto; }
+        }
+        .language-menu { position: absolute; top: 100%; right: 0; background: var(--white); border: 1px solid rgba(15,37,64,0.1); border-radius: 8px; min-width: 150px; display: none; flex-direction: column; z-index: 999; box-shadow: 0 8px 20px rgba(11,28,50,0.06); }
+        .language-selector:hover .language-menu, .language-menu.show { display: flex; }
+        .lang-option { background: transparent; border: none; padding: 0.75rem 1rem; text-align: left; cursor: pointer; color: var(--navy); font-weight: 500; transition: all 0.2s; font-size: 0.9rem; }
+        .lang-option:hover { background: rgba(15,37,64,0.05); color: var(--gold); }
+        .lang-option.active { background: rgba(212,175,55,0.1); color: var(--gold); }
+        body.dark-mode .language-menu { background: var(--white); border-color: rgba(255,255,255,0.1); }
+        .btn { padding:0.5rem 1rem; border-radius:30px; font-weight:600; cursor:pointer; transition: all 0.3s; border:none; display:inline-flex; align-items:center; gap:8px; text-decoration: none; font-size:0.9rem; }
+        .btn-primary { background: var(--accent); color: #2b2b2b; box-shadow: 0 8px 20px rgba(253,160,133,0.12); border: none; text-decoration: none; }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 18px 40px #fda0851f; text-decoration: none; }
+        .btn-outline { background-color: transparent; color: var(--navy); border:2px solid rgba(15,37,64,0.08); text-decoration: none; }
+        .btn-outline:hover { background-color: var(--navy); color: var(--white); border-color: transparent; text-decoration: none; }
+    </style>
+    <script src="i18n.js"></script>
+</head>
+<body>
+     <header style="margin-bottom: 170px;">
+        <div class="container header-container" style="margin-bottom: 170px;">
+            <a href="index.html" class="logo"><svg width="28" height="20" viewBox="0 0 24 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right:8px"><path d="M1 14L8 3l5 9 4-6 5 9H1z" fill="#d4af37"/></svg>Trip<span>O</span></a>
+            <nav>
+                <ul>
+                    <li><a href="./index.html" >Ana Səhifə</a></li>
+                    <li><a href="./mountain-equipment.html">Avadanlıq</a></li>
+                    <li><a href="./outfit.html">Geyim Seçici</a></li>
+                    <li><a href="./safety.html" class="active">Təhlükəsizlik</a></li>
+                    <!-- Travel Assistant removed per request -->
+                </ul>
+            </nav>
+            <div class="header-actions">
+               
+               
+                <a href="./auth.html" class="btn btn-primary start-journey-btn">
+                    <i class="fas fa-rocket"></i> Səyahətə Başla
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class="hero-banner" style="margin-top: 150px;">
+        <h1>🛡️ Səyahət Təhlükəsizliyi</h1>
+        <p>Dağlıq ərazidə təhlükəsiz və rahat səyahətiniz üçün lazım olan bütün məlumatlar</p>
+    </div>
+
+    <div class="container">
+        <div class="safety-intro">
+            <h2 class="intro-title">Təhlükəsizliyi Ciddiyə Alın</h2>
+            <p class="intro-text">
+                Hər dağcılıq macərası görmə qabaqda zəruri planlama tələb edir. 
+                Düzgün hazırlıq və təhlükəsizlik qaydalarına riayət etmə, 
+                sizin və başqalarının xoşbaxtlığını təmin etmənin ana açarıdır.
+            </p>
+        </div>
+
+        <div class="safety-grid">
+            <div class="safety-card">
+                <div class="safety-icon">⚠️</div>
+                <h3 class="safety-title">Xəritə & Marşrut</h3>
+                <p class="safety-desc">
+                    Marşrutunuzu əvvəlcədən hazırlayın. Xəritəni yaxşı öyrənin. 
+                    Hava proqnozunu yoxlayın. Digər səyahətçilərə məlumat verin.
+                </p>
+            </div>
+
+            <div class="safety-card">
+                <div class="safety-icon">🆘</div>
+                <h3 class="safety-title">Fərst Yardım</h3>
+                <p class="safety-desc">
+                    Fərst yardım çantası daşıyın. Əsas tikiş bacarıqlarını bilin. 
+                    Ətrəfiniz insanlara fərst yardım barədə məlumat verin.
+                </p>
+            </div>
+
+            <div class="safety-card">
+                <div class="safety-icon">📱</div>
+                <h3 class="safety-title">Rabitə Əlavatı</h3>
+                <p class="safety-desc">
+                    Mobil telefon şarjlı saxlayın. Offline xəritə yükləyin. 
+                    Acsəs nömrələrini bələ götürün. İtki zamanında istifadə etməyin.
+                </p>
+            </div>
+        </div>
+
+        <!-- New: Climbing-specific tips -->
+        <div class="steps-section" style="margin-top:1.5rem;">
+            <h2 class="section-title">Dağa Dırmaşarkən Diqqət Olunası Məqamlar</h2>
+
+            <!-- Infographic visual summary -->
+            <div class="infographic" role="img" aria-label="Dağa dırmaşarkən diqqət olunası məqamlar: Avadanlıq yoxlaması, Əməkdaşlıq, Hava monitorinqi, Uyğun ayaqqabı, Ritm və istirahət">
+                <div class="infographic-grid">
+                    <div class="info-item" role="button" tabindex="0" aria-expanded="false" data-target="detail-1">
+                        <div class="info-icon eq1">🪢</div>
+                        <div class="info-title">Avadanlıq Yoxlama</div>
+                        <div class="info-sub">Kəmərlər, karabinlər və ip yoxlanılmalıdır.</div>
+                        <div id="detail-1" class="info-detail" aria-hidden="true">Hər dırmanışdan əvvəl kəmər, karabin, ip və kaska diqqətlə yoxlanılmalıdır. Düyünlər möhkəm olmalı, karabinlər düzgün bağlanmış və ipdə aşınma olmamalıdır. Zəif avadanlığı əvəz edin və heç vaxt çatışmayan parçalarla davam etməyin.</div>
+                    </div>
+                    <div class="info-item" role="button" tabindex="0" aria-expanded="false" data-target="detail-2">
+                        <div class="info-icon eq2">👥</div>
+                        <div class="info-title">İkiqat Yoxlama</div>
+                        <div class="info-sub">Tərəfdaşınızla bir-birinizi yoxlayın.</div>
+                        <div id="detail-2" class="info-detail" aria-hidden="true">"Buddy check" proseduru tətbiq edin: hər iki tərəf digərinin kəmərini, düyünləri, karabinləri və yardımcı avadanlığı yoxlamalıdır. Bu, çox vaxt mümkün olan ciddi səhvləri qabaqlayır.</div>
+                    </div>
+                    <div class="info-item" role="button" tabindex="0" aria-expanded="false" data-target="detail-3">
+                        <div class="info-icon eq3">🌦️</div>
+                        <div class="info-title">Hava Monitorinqi</div>
+                        <div class="info-sub">Hava və marşrutu davamlı izləyin.</div>
+                        <div id="detail-3" class="info-detail" aria-hidden="true">Hava tez dəyişə bilər — yerli proqnozu və bulud, külək, görünürlük kimi dəyişənləri izləyin. Fırtına və ya güclü külək gözləndikdə dırmanışı dayandırın və təhlükəsiz səthə qayıdın.</div>
+                    </div>
+                    <div class="info-item" role="button" tabindex="0" aria-expanded="false" data-target="detail-4">
+                        <div class="info-icon eq4">🥾</div>
+                        <div class="info-title">Uyğun Ayaqqabı</div>
+                        <div class="info-sub">Anti-sürüşən və dəstək verən botlar seçin.</div>
+                        <div id="detail-4" class="info-detail" aria-hidden="true">Dırmanış üçün xüsusi botlar seçin — kifayət qədər ayaq dəstəyi verən, yapışqan tabanlı və sərt strukturlu modellər daha uyğundur. Yeni botları uzun yürüşdən əvvəl pozun və qəlibləməni yoxlayın.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- original detailed cards (kept below infographic for depth) -->
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;margin-top:1rem;">
+                <div class="safety-card">
+                    <div class="safety-icon">🪢</div>
+                    <h3 class="safety-title">Qiymətli Avadanlıq və Yoxlama</h3>
+                    <p class="safety-desc">Hər yürüşdən əvvəl kəmərlər, karabinlər, ip, qazmaçılar və botların vəziyyətini yoxlayın. Zəif hissələri dəyişdirin və heç vaxt şübhəli avadanlıqla dırmanmayın.</p>
+                </div>
+                <div class="safety-card">
+                    <div class="safety-icon">👥</div>
+                    <h3 class="safety-title">Əməkdaşlıq və İkiqat Yoxlama</h3>
+                    <p class="safety-desc">Tərəfdaşla (buddy) işləyin: hər kəs digərinin kəmərini, düyünlərini və karabinlərini yoxlamalıdır. Rutində ikiqat yoxlama vərdişi xilas edir.</p>
+                </div>
+                <div class="safety-card">
+                    <div class="safety-icon">🌦️</div>
+                    <h3 class="safety-title">Hava və Marşrut Monitorinqi</h3>
+                    <p class="safety-desc">Hava tez dəyişir — bulud, külək və temperaturu davamlı izləyin. Riskli hava şərtlərində dırmanışı ertələyin.</p>
+                </div>
+                <div class="safety-card">
+                    <div class="safety-icon">🥾</div>
+                    <h3 class="safety-title">Ayaqxana və Taban Uyğunluğu</h3>
+                    <p class="safety-desc">Yaxşı yapışqanlı və ayaq dəstəyi verən botlar geyinin. Tər tökmə və sürüşməni azaltmaq üçün uyğun taban seçin.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="steps-section">
+            <h2 class="section-title">Hazırlıq Addımları — Dağa Dırmaşma (5 addım)</h2>
+            <div class="steps-grid">
+                <div class="step-item">
+                    <div class="step-number">1</div>
+                    <div class="step-text">İlk 10 metr: başlanğıc yoxlaması — kəmərinizi, düyünlərinizi və karabinlərinizi ikiqat yoxlayın; nəfəsinizi nizamlamaq üçün ritmik və sakit qalın; tərəfdaşınızı yoxlayın və düzgün möhkəmləndiyinizi təsdiqləyin.</div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">2</div>
+                    <div class="step-text">Avadanlıq və təhlükəsizlik: hər bir avadanlığı (ip, kəmər, karabin, kaska) yoxlayın və ehtiyat planı hazırlayın.</div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">3</div>
+                    <div class="step-text">Marşrut və hava yoxlaması: marşrutun çətinlik səviyyəsini qiymətləndirin, hava şəraitini yenidən yoxlayın və riskli zonalarda dayanmayın.</div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">4</div>
+                    <div class="step-text">Ritm və enerji idarəsi: öz sürətinizi saxlayın, su və enerji qidalarını mütəmadi qəbul edin, yorğunluq hiss etdikdə qısa fasilələr verin.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="emergency-section">
+            <h2 class="emergency-title">
+                <span class="emergency-icon">🚨</span>
+                Təcili Zəng Nömrələri
+            </h2>
+            <div class="emergency-list">
+                <div class="emergency-item">
+                    <strong>Fövqəladə Xidmət:</strong>
+                    <p>112 — Təcili Yardım / Yanğın / Polis</p>
+                </div>
+                <div class="emergency-item">
+                    <strong>Sağlamlıq Xidməti (Təcili Tibbi Yardım):</strong>
+                    <p>103 — Təcili Tibbi Yardım</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Infographic expand/collapse behavior
+        (function(){
+            const items = document.querySelectorAll('.info-item');
+            items.forEach(item => {
+                const targetId = item.dataset.target;
+                const detail = targetId ? document.getElementById(targetId) : null;
+                function open(){
+                    if(!detail) return;
+                    const opened = detail.classList.toggle('open');
+                    item.setAttribute('aria-expanded', opened ? 'true' : 'false');
+                    detail.setAttribute('aria-hidden', opened ? 'false' : 'true');
+                    // scroll into view on open for small screens
+                    if(opened){ detail.scrollIntoView({behavior: 'smooth', block: 'nearest'}); }
+                }
+                item.addEventListener('click', function(e){
+                    open();
+                });
+                item.addEventListener('keydown', function(e){
+                    if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); open(); }
+                });
+            });
+        })();
+    </script>
+</body>
+</html>

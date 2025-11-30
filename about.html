@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Haqqımızda - TripO</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a1929 0%, #0d2536 50%, #0f2540 100%);
+            color: #1a1a1a;
+            overflow-x: hidden;
+        }
+
+        /* Header Sticky */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(15, 37, 64, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(100, 200, 220, 0.1);
+            padding: 1rem 2rem;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #fff;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo span {
+            background: linear-gradient(135deg, #64c8dc 0%, #96b4dc 100%);
+        }
+
+        nav {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        nav a, nav button {
+            padding: 0.65rem 1.5rem;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
+            text-decoration: none;
+            border: 1px solid rgba(100, 200, 220, 0.2);
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        nav a:hover, nav button:hover {
+            background: rgba(100, 200, 220, 0.15);
+            border-color: rgba(100, 200, 220, 0.5);
+            box-shadow: 0 0 20px rgba(100, 200, 220, 0.3), inset 0 0 20px rgba(255, 255, 255, 0.05);
+            transform: translateY(-2px);
+        }
+
+        nav a.active {
+            background: linear-gradient(135deg, #64c8dc 0%, #96b4dc 100%);
+            border-color: #64c8dc;
+            color: #fff;
+            box-shadow: 0 0 25px rgba(100, 200, 220, 0.4);
+        }
+
+        .lang-selector {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .lang-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
+            border: 1px solid rgba(100, 200, 220, 0.2);
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .lang-btn:hover {
+            background: rgba(100, 200, 220, 0.15);
+            box-shadow: 0 0 15px rgba(100, 200, 220, 0.3);
+        }
+
+        .lang-btn.active {
+            background: linear-gradient(135deg, #64c8dc 0%, #96b4dc 100%);
+            border-color: #64c8dc;
+            box-shadow: 0 0 20px rgba(100, 200, 220, 0.4);
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 500px;
+            background: linear-gradient(135deg, rgba(31, 111, 82, 0.4) 0%, rgba(100, 200, 220, 0.2) 100%), 
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 500"><defs><linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%231f6f52;stop-opacity:0.6"/><stop offset="100%" style="stop-color:%2364c8dc;stop-opacity:0.3"/></linearGradient></defs><path d="M0,300 Q300,200 600,250 T1200,200 L1200,500 L0,500 Z" fill="%230f2540" opacity="0.7"/><path d="M0,350 Q300,300 600,320 T1200,280 L1200,500 L0,500 Z" fill="%231f6f52" opacity="0.5"/></svg>');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(180deg, rgba(15, 37, 64, 0.3) 0%, rgba(31, 111, 82, 0.4) 50%, rgba(15, 37, 64, 0.5) 100%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            color: #fff;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            letter-spacing: -1px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            font-weight: 300;
+            max-width: 600px;
+            margin: 0 auto;
+            text-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+            line-height: 1.6;
+        }
+
+        /* About Section */
+        .about-intro {
+            padding: 80px 2rem;
+            background: linear-gradient(135deg, #fff 0%, #f8fafb 100%);
+            position: relative;
+        }
+
+        .about-intro::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent 0%, #64c8dc 50%, transparent 100%);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-text h2 {
+            font-size: 2.2rem;
+            color: #0f2540;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+
+        .about-text p {
+            font-size: 1rem;
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            text-align: justify;
+        }
+
+        .about-image {
+            position: relative;
+            height: 400px;
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(31, 111, 82, 0.15);
+            background: linear-gradient(135deg, #1f6f52 0%, #64c8dc 100%);
+            animation: fadeInRight 0.8s ease-out 0.2s both;
+        }
+
+        .about-image::before {
+            content: '🏔️';
+            position: absolute;
+            font-size: 150px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0.3;
+            z-index: 1;
+        }
+
+        .about-image::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(31, 111, 82, 0.4) 0%, rgba(100, 200, 220, 0.2) 100%);
+            z-index: 2;
+        }
+
+        /* Mission Section */
+        .mission {
+            padding: 80px 2rem;
+            background: linear-gradient(135deg, #0a1929 0%, #0d2536 50%, #0f2540 100%);
+            position: relative;
+        }
+
+        .mission::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent 0%, #64c8dc 50%, transparent 100%);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: #fff;
+            margin-bottom: 1rem;
+            font-weight: 800;
+        }
+
+        .section-title p {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .mission-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .mission-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(100, 200, 220, 0.2);
+            padding: 40px;
+            border-radius: 28px;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .mission-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(100, 200, 220, 0.1) 0%, transparent 70%);
+            transition: all 0.6s ease;
+        }
+
+        .mission-card:hover {
+            transform: translateY(-8px);
+            background: rgba(100, 200, 220, 0.1);
+            border-color: rgba(100, 200, 220, 0.4);
+            box-shadow: 0 20px 50px rgba(100, 200, 220, 0.15);
+        }
+
+        .mission-card:hover::before {
+            top: -30%;
+            right: -30%;
+        }
+
+        .mission-icon {
+            font-size: 60px;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 2;
+            display: inline-block;
+            background: linear-gradient(135deg, #f5a962 0%, #e67e9c 100%);
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(245, 169, 98, 0.2);
+        }
+
+        .mission-card h3 {
+            font-size: 1.5rem;
+            color: #fff;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            position: relative;
+            z-index: 2;
+        }
+
+        .mission-card p {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Why Choose Us Section */
+        .why-us {
+            padding: 80px 2rem;
+            background: linear-gradient(135deg, #fff 0%, #f8fafb 100%);
+            position: relative;
+        }
+
+        .why-us::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent 0%, #64c8dc 50%, transparent 100%);
+        }
+
+        .why-us .section-title h2 {
+            color: #0f2540;
+        }
+
+        .why-us .section-title p {
+            color: #666;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-item {
+            background: #fff;
+            padding: 35px;
+            border-radius: 24px;
+            box-shadow: 0 5px 20px rgba(31, 111, 82, 0.08);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border: 1px solid rgba(100, 200, 220, 0.1);
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .feature-item:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .feature-item:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .feature-item:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .feature-item:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(31, 111, 82, 0.15);
+            border-color: rgba(100, 200, 220, 0.3);
+            background: linear-gradient(135deg, #fff 0%, rgba(100, 200, 220, 0.05) 100%);
+        }
+
+        .feature-icon {
+            font-size: 50px;
+            margin-bottom: 1rem;
+        }
+
+        .feature-item h3 {
+            font-size: 1.3rem;
+            color: #0f2540;
+            margin-bottom: 0.8rem;
+            font-weight: 700;
+        }
+
+        .feature-item p {
+            font-size: 0.9rem;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Team Section */
+        .team {
+            padding: 80px 2rem;
+            background: linear-gradient(135deg, #0a1929 0%, #0d2536 50%, #0f2540 100%);
+            position: relative;
+        }
+
+        .team::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent 0%, #64c8dc 50%, transparent 100%);
+        }
+
+        .team .section-title h2 {
+            color: #fff;
+        }
+
+        .team .section-title p {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .team-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(100, 200, 220, 0.2);
+            padding: 40px;
+            border-radius: 24px;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-8px);
+            background: rgba(100, 200, 220, 0.1);
+            border-color: rgba(100, 200, 220, 0.4);
+            box-shadow: 0 20px 50px rgba(100, 200, 220, 0.15);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #64c8dc 0%, #96b4dc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 600;
+        }
+
+        /* Footer */
+        footer {
+            padding: 2rem;
+            background: rgba(15, 37, 64, 0.9);
+            text-align: center;
+            border-top: 1px solid rgba(100, 200, 220, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                padding: 1rem 1.5rem;
+            }
+
+            .logo {
+                font-size: 1.4rem;
+            }
+
+            nav {
+                gap: 0.5rem;
+                flex-wrap: wrap;
+            }
+
+            nav a, nav button {
+                padding: 0.55rem 1rem;
+                font-size: 0.85rem;
+            }
+
+            .hero {
+                height: 350px;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .about-text h2 {
+                font-size: 1.8rem;
+            }
+
+            .about-image {
+                height: 300px;
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
+
+            .mission-cards,
+            .features-grid,
+            .team-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .mission-card,
+            .feature-item,
+            .stat-card {
+                padding: 30px;
+            }
+
+            .mission-icon {
+                font-size: 45px;
+                padding: 15px;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+            }
+
+            .about-intro,
+            .mission,
+            .why-us,
+            .team {
+                padding: 60px 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            nav {
+                gap: 0.3rem;
+            }
+
+            nav a, nav button {
+                padding: 0.5rem 0.8rem;
+                font-size: 0.75rem;
+            }
+
+            .lang-btn {
+                width: 35px;
+                height: 35px;
+                font-size: 0.7rem;
+            }
+
+            .hero h1 {
+                font-size: 1.5rem;
+            }
+
+            .hero p {
+                font-size: 0.9rem;
+            }
+
+            .about-text h2,
+            .section-title h2 {
+                font-size: 1.5rem;
+            }
+
+            .mission-card p,
+            .feature-item p {
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                ⛰️ <span>TripO</span>
+            </a>
+            <nav>
+                <a href="index.html" class="nav-link">Əsas</a>
+                <a href="mountain-equipment.html" class="nav-link">Avadanlıq</a>
+                <a href="outfit.html" class="nav-link">Geyim Tövsiyəsi</a>
+                <a href="safety.html" class="nav-link">Təhlükəsizlik</a>
+                <a href="about.html" class="nav-link active">Haqqımızda</a>
+                <a href="contact.html" class="nav-link">Əlaqə</a>
+                <a href="auth.html" class="nav-link">Giriş/Qeyd</a>
+                <div class="lang-selector">
+                    <button class="lang-btn active" onclick="setLang('AZ')">AZ</button>
+                    <button class="lang-btn" onclick="setLang('EN')">EN</button>
+                    <button class="lang-btn" onclick="setLang('TR')">TR</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Haqqımızda</h1>
+            <p>TripO səyahət və macəraya olan həvəsi bölüşmək üçün yaradılıb</p>
+        </div>
+    </section>
+
+    <!-- About Intro Section -->
+    <section class="about-intro">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-text">
+                    <h2>Biz Kimik</h2>
+                    <p>
+                        TripO, dağ və tərəvət aşkınları üçün ən yaxşı səyahət təcrübəsini yaratmaq üçün işləyən bir komandadır. Bizim missiyası hər bir səyahətçiyə güvən, rahat və ya da axşam səyahəti verməkdir.
+                    </p>
+                    <p>
+                        Üzərində 10 ildən artıq təcrübə ilə, biz minlərlə səyahətçiyə kömək etmişik öz arzularını gerçəkləşdirmək. Dağ təhlükəsizliyi, keyfiyyətli avadanlıq və böyük komanda - bunlar bizim əsas dəyərlərimizdir.
+                    </p>
+                    <p>
+                        Hər bir səyahətçi bizim üçün vahid və xüsusi. Onlar dəqiq şəxsi tövsiyələr və peşəkar dəstək əldə edirlər. Siz bir ən böyük macəraya hazırlıq edilən zaman, biz sizin məsul tərəfdəşiniz olmağa tətavvəz edirik.
+                    </p>
+                </div>
+                <div class="about-image"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission Section -->
+    <section class="mission">
+        <div class="container">
+            <div class="section-title">
+                <h2>Missiyamız</h2>
+                <p>Şəxsi dəyərlərimiz və hədəflərimiz</p>
+            </div>
+            <div class="mission-cards">
+                <div class="mission-card">
+                    <div class="mission-icon">🛡️</div>
+                    <h3>Təhlükəsiz Səyahət</h3>
+                    <p>Hər bir səyahətçinin təhlükəsizliyi bizim prioritetimizdir. Biz ən yüksək standartlarda təhlükəsizlik protokolları təmin edirik.</p>
+                </div>
+                <div class="mission-card">
+                    <div class="mission-icon">⭐</div>
+                    <h3>Yüksək Keyfiyyət</h3>
+                    <p>Premium avadanlıq və xidmət hər zaman bizim təlabatıdır. Biz yalnız ən yaxşısını təyin edirik.</p>
+                </div>
+                <div class="mission-card">
+                    <div class="mission-icon">👥</div>
+                    <h3>Təcrübəli Komanda</h3>
+                    <p>Dağ rehbərləri, təhlükəsizlik ekspertləri və müşdəriyə xidmət spesialistləri sizə kömək etmək üçün hazırıq.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section class="why-us">
+        <div class="container">
+            <div class="section-title">
+                <h2>Niyə Bizi Seçirlər</h2>
+                <p>TripO-ı digərlərdən fərqli edən xüsusiyyətlər</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Fərdi Planlaşdırma</h3>
+                    <p>Hər səyahət sizin ehtiyaclarınıza və istəklərinizə uyğun öz-özünə planlaşdırılır. Bir şablonun qapısı olmaz.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🌍</div>
+                    <h3>Geniş Təcrübə</h3>
+                    <p>Kaukaz dağları ilə Alp dağlarından tutaraq, biz dünya boyu birbirinin ardısıra səyahətlər təşkil edirik.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">💪</div>
+                    <h3>24/7 Dəstək</h3>
+                    <p>Səyahət zamanı hər zaman biz başınızın fövqündə. Həqiqi məsələlər üçün dərhal yardım sağlanır.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">📱</div>
+                    <h3>Sürətli Prosess</h3>
+                    <p>Mobil tətbiq ilə planlaşdırma sadə və tez. Boş vaxtınızı itirmədən, səyahətə başlayın.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team">
+        <div class="container">
+            <div class="section-title">
+                <h2>Bizimlə Səyahət Edin</h2>
+                <p>TripO şirkətinin başarı statistikası</p>
+            </div>
+            <div class="team-stats">
+                <div class="stat-card">
+                    <div class="stat-number">15K+</div>
+                    <div class="stat-label">Xoşbəxt Səyahətçi</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">Tamamlanmış Səyahətlər</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Dağ Təpələri</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">98%</div>
+                    <div class="stat-label">Məmnun Müştərilər</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 TripO. Bütün hüquqlar qorunur. | <a href="index.html" style="color: #64c8dc; text-decoration: none;">Əsas Səhifə</a></p>
+    </footer>
+
+    <script src="i18n.js"></script>
+    <script>
+        // Set active navigation on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                if (link.href.includes('about.html')) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+
+            // Initialize language
+            const savedLang = localStorage.getItem('siteLang') || 'AZ';
+            setLang(savedLang);
+            updateLanguageButtons(savedLang);
+        });
+
+        function updateLanguageButtons(lang) {
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.textContent === lang) {
+                    btn.classList.add('active');
+                }
+            });
+        }
+
+        // Listen for language changes
+        document.addEventListener('languageChanged', function(e) {
+            updateLanguageButtons(e.detail.lang);
+        });
+    </script>
+</body>
+</html>

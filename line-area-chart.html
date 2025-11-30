@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Dağlıq məkanlara illik ziyarətçi sayı — TripO</title>
+  <style>
+    :root{
+      --bg:#0f1b2d;
+      --card-bg:linear-gradient(180deg, rgba(15,27,45,0.92), rgba(10,18,30,0.88));
+      --accent:#4da3ff;
+      --accent-area: rgba(77,163,255,0.25);
+      --glass: rgba(255,255,255,0.04);
+      --neon: rgba(77,163,255,0.14);
+      --radius: 24px;
+      --card-radius: 28px;
+    }
+    html,body{height:100%;}
+    body{
+      margin:0;
+      min-height:100vh;
+      background:linear-gradient(180deg,var(--bg) 0%, #081122 100%);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      color:#dcecff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:48px;
+    }
+
+    .card-wrap{
+      width:100%;
+      max-width:1100px;
+      border-radius:32px;
+      padding:28px;
+      background:var(--card-bg);
+      box-shadow: 0 10px 40px rgba(2,6,23,0.6), 0 0 60px var(--neon);
+      position:relative;
+      overflow:visible;
+    }
+
+    /* soft ambient glow behind card */
+    .card-wrap::before{
+      content:'';
+      position:absolute;
+      left:50%;
+      transform:translateX(-50%);
+      bottom:-48px;
+      width:80%;
+      height:120px;
+      background:radial-gradient(closest-side, rgba(77,163,255,0.08), transparent 60%);
+      filter: blur(24px);
+      pointer-events:none;
+    }
+
+    .chart-title{
+      text-align:center;
+      margin-bottom:18px;
+    }
+
+    .chart-title h2{
+      margin:0;
+      font-size:1.35rem;
+      letter-spacing:-0.2px;
+      font-weight:700;
+      color:#eaf6ff;
+    }
+
+    .chart-title p{
+      margin:6px 0 0 0;
+      color:rgba(234,246,255,0.65);
+      font-size:0.95rem;
+    }
+
+    .canvas-holder{
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:20px;
+      padding:18px;
+      margin-top:14px;
+    }
+
+    canvas{display:block; width:100% !important; height:420px !important; border-radius:18px;}
+
+    /* small legend */
+    .legend{
+      display:flex;
+      justify-content:center;
+      gap:12px;
+      margin-top:12px;
+      color:rgba(234,246,255,0.7);
+      font-size:0.92rem;
+    }
+
+    .legend .dot{
+      width:14px;height:14px;border-radius:8px;display:inline-block;margin-right:8px;vertical-align:middle;
+      box-shadow:0 6px 18px rgba(77,163,255,0.12);
+    }
+
+    /* minimal axis labels style inside chart handled by ChartJS options */
+
+    @media (max-width:900px){
+      canvas{height:360px !important}
+    }
+    @media (max-width:600px){
+      .card-wrap{padding:18px}
+      canvas{height:300px !important}
+    }
+  </style>
+</head>
+<body>
+  <div class="card-wrap" role="region" aria-label="Dağlıq məkanlara illik ziyarətçi sayı">
+    <div class="chart-title">
+      <h2>Dağlıq məkanlara illik ziyarətçi sayı</h2>
+      <p>İllik ziyarətçi sayı (0–1400) — məkanlara görə müqayisə</p>
+    </div>
+
+    <div class="canvas-holder">
+      <canvas id="visitorsChart" aria-hidden="false"></canvas>
+    </div>
+
+    <div class="legend" aria-hidden="true">
+      <span><i class="dot" style="background:linear-gradient(90deg,#4da3ff,#5dd0ff)"></i>Ziyarətçi sayı</span>
+    </div>
+  </div>
+
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    const labels = ['Elbrus','Bazardüzü','Tufandağ','Babadağ','Lökbatan','Qobustan'];
+    const dataValues = [1240,980,850,650,520,780];
+
+    const ctx = document.getElementById('visitorsChart').getContext('2d');
+
+    // create gradient for area fill and for stroke glow
+    const gradient = ctx.createLinearGradient(0,0,0,400);
+    gradient.addColorStop(0,'rgba(77,163,255,0.40)');
+    gradient.addColorStop(1,'rgba(77,163,255,0.08)');
+
+    // subtle glow for line (drawn as shadow by plugin)
+
+    const config = {
+      type: 'line',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Ziyarətçi',
+          data: dataValues,
+          fill: true,
+          backgroundColor: 'rgba(77,163,255,0.25)',
+          borderColor: '#4da3ff',
+          borderWidth: 3,
+          tension: 0.38, // smooth curve
+          pointBackgroundColor: '#0f1b2d',
+          pointBorderColor: '#ffffff',
+          pointBorderWidth: 3,
+          pointRadius: 6,
+          pointHoverRadius: 8,
+          pointHoverBorderWidth:4,
+          segment: { 
+            borderJoinStyle: 'round'
+          }
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        layout:{padding:10},
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            backgroundColor: 'rgba(12,20,30,0.95)',
+            titleColor: '#eaf6ff',
+            bodyColor: '#dcecff',
+            borderColor: 'rgba(77,163,255,0.2)',
+            borderWidth:1,
+            usePointStyle:true,
+            bodySpacing:8,
+            cornerRadius:8,
+            callbacks:{
+              label: function(context){
+                return context.parsed.y + ' nəfər';
+              }
+            }
+          }
+        },
+        scales: {
+          x: {
+            grid: { display: false },
+            ticks: { color: 'rgba(234,246,255,0.75)', font: { weight:600 } },
+            border: { display: false }
+          },
+          y: {
+            min: 0,
+            max: 1400,
+            ticks: {
+              stepSize: 200,
+              color: 'rgba(234,246,255,0.6)',
+              font: { weight:600 }
+            },
+            grid: {
+              color: 'rgba(255,255,255,0.04)',
+              drawBorder:false
+            }
+          }
+        },
+        elements: {
+          line: { borderCapStyle: 'round', borderJoinStyle: 'round' }
+        }
+      },
+      plugins: [
+        // plugin to add soft shadow/glow under the line
+        {
+          id: 'shadowPlugin',
+          beforeDatasetDraw(chart, args, options) {
+            const {ctx, chartArea: {left, top, right, bottom}} = chart;
+            ctx.save();
+            ctx.shadowColor = 'rgba(77,163,255,0.25)';
+            ctx.shadowBlur = 20;
+            ctx.shadowOffsetX = 0;
+            ctx.shadowOffsetY = 6;
+          },
+          afterDatasetDraw(chart, args, options) {
+            chart.ctx.restore();
+          }
+        }
+      ]
+    };
+
+    const visitorsChart = new Chart(ctx, config);
+
+    // accessibility: ensure canvas has role
+    document.getElementById('visitorsChart').setAttribute('role','img');
+    document.getElementById('visitorsChart').setAttribute('aria-label','Dağlıq məkanlara illik ziyarətçi sayı: Elbrus 1240, Bazardüzü 980, Tufandağ 850, Babadağ 650, Lökbatan 520, Qobustan 780');
+  </script>
+</body>
+</html>

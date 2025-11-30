@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fəsilə Uyğun Geyim - TripO</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --navy: #0f2540;
+            --forest: #1f6f52;
+            --cream: #fef7ef;
+            --gold: #d4af37;
+            --stone: #6b7280;
+            --white: #ffffff;
+            --accent: linear-gradient(90deg,#f6d365 0%, #fda085 100%);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, var(--cream) 0%, #f0e8df 100%);
+            color: var(--navy);
+            line-height: 1.6;
+        }
+
+        body.dark-mode {
+            --navy: #e6eef8;
+            --forest: #2fa076;
+            --cream: #071428;
+            --gold: #d4af37;
+            --stone: #9aa6b2;
+            --white: #0f2536;
+            background: linear-gradient(180deg,#071428,#081827);
+        }
+
+        body.dark-mode header {
+            background: rgba(8,16,24,0.72);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+        }
+
+        header {
+            background: rgba(255,255,255,0.92);
+            backdrop-filter: blur(8px);
+            padding: 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 4px 18px rgba(12, 35, 64, 0.08);
+            transition: all 0.28s ease;
+            height: 96px;
+            border-radius: 0 0 18px 18px;
+        }
+
+        .header-container {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 3rem;
+            padding: 0 3.5rem;
+            position: relative;
+            min-height: 96px;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--navy);
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            letter-spacing: 0.5px;
+        }
+
+        .logo span {
+            color: var(--gold);
+        }
+
+        nav {
+            flex: 1;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            justify-content: flex-start;
+            gap: 2rem;
+        }
+
+        nav ul li a {
+            color: var(--navy);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            position: relative;
+            padding: 2px 0;
+            font-size: 0.95rem;
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--gold);
+            transition: width 0.3s;
+        }
+
+        nav ul li a:hover::after,
+        nav ul li a.active::after {
+            width: 100%;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-left: auto;
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--navy);
+            border: 2px solid rgba(15,37,64,0.08);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--navy);
+            color: var(--white);
+            border-color: transparent;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #2b2b2b;
+            box-shadow: 0 8px 20px rgba(253,160,133,0.12);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 18px 40px #fda0851f;
+        }
+
+        .language-selector {
+            position: relative;
+        }
+
+        .language-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: var(--white);
+            border: 1px solid rgba(15,37,64,0.1);
+            border-radius: 8px;
+            min-width: 150px;
+            display: none;
+            flex-direction: column;
+            z-index: 999;
+            box-shadow: 0 8px 20px rgba(11,28,50,0.06);
+            margin-top: 8px;
+        }
+
+        .language-selector:hover .language-menu {
+            display: flex;
+        }
+
+        .lang-option {
+            background: transparent;
+            border: none;
+            padding: 0.75rem 1rem;
+            text-align: left;
+            cursor: pointer;
+            color: var(--navy);
+            font-weight: 500;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+        }
+
+        .lang-option:hover {
+            background: rgba(15,37,64,0.05);
+            color: var(--gold);
+        }
+
+        main {
+            margin-top: 96px;
+            padding: 80px 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .page-header h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--navy), var(--forest));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-header p {
+            font-size: 1.1rem;
+            color: var(--stone);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Season Filter Buttons */
+        .season-filters {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 4rem;
+        }
+
+        .season-btn {
+            padding: 2rem;
+            border: 2px solid rgba(45, 95, 63, 0.1);
+            background: white;
+            border-radius: 16px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            color: #000;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .season-btn:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.1);
+            border-color: rgba(45, 95, 63, 0.3);
+        }
+
+        .season-btn.active {
+            background: linear-gradient(135deg, #2d5f3f, #64a876);
+            color: #000; /* keep text black even when active as requested */
+            border-color: transparent;
+            box-shadow: 0 12px 40px rgba(45, 95, 63, 0.3);
+        }
+
+        /* Ensure the inner label text remains black and readable */
+        .season-btn > span { color: #000; }
+
+        .season-icon {
+            font-size: 2.5rem;
+        }
+
+        /* Clothing Items Grid */
+        .clothing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .clothing-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+            border: 1px solid rgba(45, 95, 63, 0.1);
+        }
+
+        .clothing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 16px 50px rgba(45, 95, 63, 0.15);
+            border-color: rgba(100, 168, 118, 0.3);
+        }
+
+        .clothing-image {
+            width: 100%;
+            height: 180px;
+            background: linear-gradient(135deg, rgba(45, 95, 63, 0.1), rgba(100, 168, 118, 0.1));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+
+        .clothing-content {
+            padding: 1.5rem;
+        }
+
+        .clothing-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #000;
+            margin-bottom: 0.5rem;
+        }
+
+        .clothing-desc {
+            font-size: 0.9rem;
+            color: #000;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .clothing-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: linear-gradient(135deg, rgba(45, 95, 63, 0.08), rgba(100, 168, 118, 0.06));
+            color: #000;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* Dark mode readable overrides */
+        body.dark-mode .clothing-title,
+        body.dark-mode .clothing-desc,
+        body.dark-mode .tag,
+        body.dark-mode .season-btn > span {
+            color: var(--white) !important;
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                gap: 1.5rem;
+                padding: 0 1.5rem;
+            }
+
+            nav ul {
+                gap: 1rem;
+            }
+
+            nav ul li a {
+                font-size: 0.85rem;
+            }
+
+            main {
+                padding: 40px 16px;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .season-filters {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .clothing-grid {
+                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            }
+        }
+
+        @media (max-width: 480px) {
+            nav {
+                display: none;
+            }
+
+            .page-header h1 {
+                font-size: 1.6rem;
+            }
+
+            .season-filters {
+                grid-template-columns: 1fr;
+            }
+
+            .season-btn {
+                padding: 1.5rem;
+                font-size: 1rem;
+            }
+
+            .clothing-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="index.html" class="logo"><svg width="28" height="20" viewBox="0 0 24 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right:8px"><path d="M1 14L8 3l5 9 4-6 5 9H1z" fill="#d4af37"/></svg>Trip<span>O</span></a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Ana Səhifə</a></li>
+                    <li><a href="mountain-equipment.html">Avadanlıq</a></li>
+                    <li><a href="outfit.html" class="active">Geyim Seçici</a></li>
+                    <li><a href="safety.html">Təhlükəsizlik</a></li>
+                    <!-- Travel Assistant removed per request -->
+                </ul>
+            </nav>
+            <div class="header-actions">
+                
+            
+                <a href="auth.html" class="btn btn-primary start-journey-btn">
+                    <i class="fas fa-rocket"></i> Səyahətə Başla
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <div class="container">
+            <!-- Page Header -->
+            <div class="page-header">
+                <h1>🎽 Fəsilə Uyğun Geyim Seçici</h1>
+                <p>Hər fəsilə uyğun geyim tövsiyələri alın. Dağlara çıkacağınız zaman hansı paltarlara ehtiyac duyacağınızı öyrənin.</p>
+            </div>
+
+            <!-- Season Filter Buttons -->
+            <div class="season-filters">
+                <button class="season-btn active" data-season="spring">
+                    <span class="season-icon">🌸</span>
+                    <span>Bahar</span>
+                </button>
+                <button class="season-btn" data-season="summer">
+                    <span class="season-icon">☀️</span>
+                    <span>Yay</span>
+                </button>
+                <button class="season-btn" data-season="autumn">
+                    <span class="season-icon">🍂</span>
+                    <span>Payız</span>
+                </button>
+                <button class="season-btn" data-season="winter">
+                    <span class="season-icon">❄️</span>
+                    <span>Qış</span>
+                </button>
+            </div>
+
+            <!-- Clothing Items Grid -->
+            <div class="clothing-grid" id="clothingGrid">
+                <!-- Clothing cards will be inserted here -->
+            </div>
+        </div>
+    </main>
+
+        <script src="main.js"></script>
+    <script src="i18n.js"></script>
+    <script src="main.js"></script>
+    <script>
+        // Clothing data for each season
+        const clothingData = {
+            spring: [
+                {
+                    icon: '🧥',
+                    title: 'Yüngül Jaket',
+                    description: 'Bahar fəslində əvvəl-sonra sərin olduğu üçün yüngül jaket lazımdır',
+                    tags: ['Yüngül', 'Nəm-keçirməz']
+                },
+                {
+                    icon: '👕',
+                    title: 'Orta Qat T-Shirt',
+                    description: 'Çox isti deyil, çox soyuq da deyil - ideal bahar geyimi',
+                    tags: ['Rahat', 'Təbii Parça']
+                },
+                {
+                    icon: '👖',
+                    title: 'Elastik Pantolon',
+                    description: 'Hərəkət azadlığı ilə dağ yürüşü üçün əta uyğundur',
+                    tags: ['Elastik', 'Dayanıqlı']
+                },
+                {
+                    icon: '🧢',
+                    title: 'Spor Şapka',
+                    description: 'Günəşdən qoruma və tərləri udma üçün',
+                    tags: ['UV Qoruması', 'Nəm-keçirməz']
+                },
+                {
+                    icon: '🥾',
+                    title: 'Trekking Ayakkabısı',
+                    description: 'Bahar yollarında sürüşkün olmayan taba lazımdır',
+                    tags: ['Anti-sürüşkün', 'Rahat']
+                },
+                {
+                    icon: '🧤',
+                    title: 'Yüngül Əlcəklər',
+                    description: 'Səbəhlər soyuq olduğu üçün yüngül əlcəklər lazım ola bilər',
+                    tags: ['Nəm-keçirməz', 'Elastik']
+                }
+            ],
+            summer: [
+                {
+                    icon: '👕',
+                    title: 'Respir Edən T-Shirt',
+                    description: 'Yay istisində tərləməməsi üçün respir edən material',
+                    tags: ['Respir Edən', 'Quru Tutur']
+                },
+                {
+                    icon: '⛱️',
+                    title: 'Şort',
+                    description: 'Sərin və rahat, aktiv hərəkət üçün ideal',
+                    tags: ['Yüngül', 'Rahat']
+                },
+                {
+                    icon: '🧤',
+                    title: 'Minimal Əlcəklər',
+                    description: 'Günəş zədəsi və cəbhələr üçün hafif koruma',
+                    tags: ['UV Qoruması', 'Yüngül']
+                },
+                {
+                    icon: '🧢',
+                    title: 'Geniş Kenarlı Şapka',
+                    description: 'Suratı və boynu günəşdən qoruma',
+                    tags: ['UV Qoruması', 'Respir Edən']
+                },
+                {
+                    icon: '👟',
+                    title: 'Yüngül Ayakkabısı',
+                    description: 'Havalandırma ilə hafif hikin ayakkabısı',
+                    tags: ['Havalandırılmış', 'Yüngül']
+                },
+                {
+                    icon: '🕶️',
+                    title: 'Günəş Eynəyi',
+                    description: 'UV qoruma ilə göz sağlığınızı qoruyun',
+                    tags: ['UV 100%', 'Polarize']
+                }
+            ],
+            autumn: [
+                {
+                    icon: '🧥',
+                    title: 'Orta Qat Jaket',
+                    description: 'Payız abadlığında sərin, amma çox soyuq deyil',
+                    tags: ['Əsas Qat', 'Respir Edən']
+                },
+                {
+                    icon: '🧶',
+                    title: 'Orta Qat Sweater',
+                    description: 'Günün əvvəlində və sonunda geyinə biləcəyiniz',
+                    tags: ['İsti', 'Rahat']
+                },
+                {
+                    icon: '👖',
+                    title: 'Layınlı Pantolon',
+                    description: 'Termal qat ilə, amma çox ağır deyil',
+                    tags: ['Termal', 'Dayanıqlı']
+                },
+                {
+                    icon: '🌧️',
+                    title: 'Suya Davamlı Cəkətlər',
+                    description: 'Payız yağışı üçün must',
+                    tags: ['Su Geçməz', 'Respir Edən']
+                },
+                {
+                    icon: '🥾',
+                    title: 'Su Keçməz Boots',
+                    description: 'Şl və nəm zəminlər üçün əta uyğun',
+                    tags: ['Su Geçməz', 'Anti-sürüşkün']
+                },
+                {
+                    icon: '🧣',
+                    title: 'Boyun Sarması',
+                    description: 'Sərin küləcik üçün ləzim koruma',
+                    tags: ['İsti', 'Yüngül']
+                }
+            ],
+            winter: [
+                {
+                    icon: '❄️',
+                    title: 'Qış Puffed Jacket',
+                    description: 'Ən soyuq günlər üçün maksimal istilik',
+                    tags: ['Doldurulmuş', 'Maksimal İsti']
+                },
+                {
+                    icon: '🎽',
+                    title: 'Termal Base Layer',
+                    description: 'Hamısın altında geyilən termal qat',
+                    tags: ['Termal', 'Rutə-keçirməz']
+                },
+                {
+                    icon: '👖',
+                    title: 'Termal Pantolon',
+                    description: 'Qış soyuğunda ləzim olan termal pantolon',
+                    tags: ['Termal', 'İsti']
+                },
+                {
+                    icon: '🧣',
+                    title: 'Qış Şalı',
+                    description: 'Boyun və suratı maksimal qoruma ilə',
+                    tags: ['İsti', 'Dayanıqlı']
+                },
+                {
+                    icon: '🧤',
+                    title: 'Termal Əlcəklər',
+                    description: 'Su keçməz, izolyasyon ilə maksimal istilik',
+                    tags: ['Termal', 'Su Keçməz']
+                },
+                {
+                    icon: '👢',
+                    title: 'Qış Boots',
+                    description: 'Qar və buzda güvənli, izolyasyon ilə',
+                    tags: ['İzolyasyon', 'Su Geçməz']
+                }
+            ]
+        };
+
+        // Function to render clothing cards
+        function renderClothing(season) {
+            const grid = document.getElementById('clothingGrid');
+            grid.innerHTML = '';
+
+            const items = clothingData[season];
+            items.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'clothing-card';
+                card.innerHTML = `
+                    <div class="clothing-image">${item.icon}</div>
+                    <div class="clothing-content">
+                        <div class="clothing-title">${item.title}</div>
+                        <div class="clothing-desc">${item.description}</div>
+                        <div class="clothing-tags">
+                            ${item.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Event listeners for season buttons
+        document.querySelectorAll('.season-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.season-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const season = btn.getAttribute('data-season');
+                renderClothing(season);
+            });
+        });
+
+        // Initialize with spring
+        renderClothing('spring');
+        
+        // Auto-open / focus the season selector when landing on this page
+        // Behavior:
+        // - If URL contains `?open=1` or `#open`, or always on direct load, scroll the filter into view
+        // - Focus the active season button for keyboard users
+        (function autoOpenSelector(){
+            function doOpen(){
+                const filters = document.querySelector('.season-filters');
+                if(!filters) return;
+                // Smoothly scroll filters to center of viewport
+                try{
+                    filters.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }catch(e){
+                    filters.scrollIntoView();
+                }
+
+                // Focus the active button, or the first button
+                const active = document.querySelector('.season-btn.active') || document.querySelector('.season-btn');
+                if(active){
+                    // Make focus visible for keyboard users
+                    active.setAttribute('tabindex','0');
+                    active.focus({ preventScroll: true });
+                }
+            }
+
+            // Open immediately after DOM content loaded
+            if (document.readyState === 'complete' || document.readyState === 'interactive'){
+                // If user purposely added ?open=1 or #open we ensure open; otherwise we still open to show selector
+                doOpen();
+            } else {
+                document.addEventListener('DOMContentLoaded', doOpen);
+            }
+        })();
+    </script>
+</body>
+</html>

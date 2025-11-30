@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Xəritə — Tövsiyələr | TripO</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        :root{--navy:#0f2540;--cream:#f9f7f3;--gold:#d4af37}
+        body{font-family:'Poppins',system-ui,Arial;margin:0;background:linear-gradient(180deg,#fbfaf8,#f1efe9);color:var(--navy)}
+        header{background:rgba(255,255,255,0.9);backdrop-filter:blur(6px);box-shadow:0 8px 40px rgba(12,35,64,0.06);position:sticky;top:0;z-index:40}
+        .container{max-width:1200px;margin:0 auto;padding:18px}
+        .nav{display:flex;gap:18px;align-items:center;justify-content:space-between}
+        .logo{font-weight:700;color:var(--navy);text-decoration:none}
+        .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:10px;text-decoration:none;border:none;cursor:pointer;font-weight:600;transition:all 0.3s}
+        .btn-primary{background:var(--gold);color:var(--navy);box-shadow:0 6px 20px rgba(212,175,55,0.2)}
+        .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(212,175,55,0.3)}
+        .hero-full{padding:60px 20px 40px;text-align:center;margin-bottom:24px}
+        .hero-full h1{margin:0 0 12px;font-size:2rem;color:var(--navy)}
+        .hero-full p{margin:0 0 24px;font-size:1.1rem;color:#556}
+        .logo{font-weight:700;color:var(--navy);text-decoration:none;display:inline-flex;align-items:center}
+        .logo span{color:var(--gold);margin-left:2px}
+        body.dark-mode .logo{color:#e0e0e0}
+        .hero-buttons{display:flex;gap:12px;justify-content:center}
+        nav ul{display:flex;gap:12px;list-style:none;padding:0;margin:0}
+        nav a{color:var(--navy);text-decoration:none;font-weight:600}
+        .hero-mini{padding:70px 20px 70px;margin:0 0 24px -18px;margin-right:-18px;padding-left:38px;padding-right:38px;border-radius:0;background:linear-gradient(180deg, rgba(255,255,255,0.8), rgba(255,255,255,0.65));box-shadow:0 10px 40px rgba(11,28,50,0.06);text-align:center;position:relative}
+        .hero-mini h1{margin:0 0 8px;font-size:1.6rem}
+        .hero-mini p{margin-top:6px;color:#4b5b66}
+        .wrap{display:grid;grid-template-columns:minmax(300px,360px) 1fr;gap:24px;padding:12px;padding-bottom:40px;align-items:start}
+        .sidebar{background:rgba(255,255,255,0.75);backdrop-filter:blur(8px);border-radius:14px;padding:18px;box-shadow:0 20px 60px rgba(11,28,50,0.08);position:sticky;top:100px;min-height:72vh;overflow:auto;max-height:calc(100vh - 120px);} 
+        .sidebar h3{margin-top:0;margin-bottom:12px;font-size:1.1rem}
+        .loc-search{box-sizing:border-box;display:block;width:100%;padding:12px 14px;border-radius:12px;border:1px solid rgba(15,37,64,0.06);margin-bottom:14px;box-shadow:inset 0 2px 6px rgba(11,28,50,0.03)}
+        .loc{padding:12px;border-radius:12px;cursor:pointer;display:flex;gap:12px;align-items:center;border:1px solid rgba(12,35,64,0.04);margin-bottom:10px;transition:all 0.22s;background:#fff}
+        .loc:hover{transform:translateX(6px);box-shadow:0 12px 30px rgba(11,28,50,0.06)}
+        #map{min-height:78vh;border-radius:14px;box-shadow:0 28px 80px rgba(11,28,50,0.10);position:relative;overflow:hidden;width:100%}
+        .map-legend{position:absolute;right:14px;top:14px;background:linear-gradient(180deg,rgba(255,255,255,0.95),rgba(255,255,255,0.9));padding:10px 14px;border-radius:10px;box-shadow:0 12px 36px rgba(11,28,50,0.06);font-size:13px;color:var(--navy);border:1px solid rgba(15,37,64,0.04)}
+        .loc-actions{margin-top:8px;display:flex;gap:8px;flex-wrap:wrap}
+        .map-link{font-size:13px;padding:7px 9px;border-radius:8px;background:#f8f7f5;color:var(--navy);text-decoration:none;border:1px solid rgba(15,37,64,0.06)}
+        .map-link:hover{background:#f1efe9}
+        .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:30px;background:var(--navy);color:#fff;padding:8px 14px;border-radius:8px;box-shadow:0 6px 20px rgba(11,28,50,0.2);opacity:0;transition:opacity 0.2s}
+        .back{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:10px;background:#fff;border:1px solid #eef2f6;color:var(--navy);text-decoration:none;box-shadow:0 8px 28px rgba(11,28,50,0.04)}
+
+        /* Popup / card styling for modern look */
+        .popup-card{font-family:Poppins; color:var(--navy);}
+        .popup-card .title{font-weight:700;color:#0f2540;margin-bottom:6px}
+        .popup-card .meta{color:#d4af37;font-weight:600;margin-bottom:6px}
+        .popup-card .desc{color:#556;font-size:13px;margin-bottom:8px}
+        .popup-card .actions a, .popup-card .actions button{margin-right:8px}
+
+        /* Night mode styles */
+        body.dark-mode{background:linear-gradient(180deg,#1a1a2e,#16213e);color:#e0e0e0}
+        body.dark-mode header{background:rgba(15,37,64,0.95);box-shadow:0 8px 40px rgba(0,0,0,0.3)}
+        body.dark-mode nav a{color:#e0e0e0}
+        body.dark-mode .hero-mini{background:linear-gradient(180deg, rgba(30,50,80,0.8), rgba(20,35,60,0.7))}
+        body.dark-mode .hero-mini h1,body.dark-mode .hero-mini p{color:#e0e0e0}
+        body.dark-mode .hero-mini .back{background:rgba(30,50,80,0.9);border-color:rgba(255,255,255,0.1);color:#e0e0e0}
+        body.dark-mode .sidebar{background:rgba(30,50,80,0.75)}
+        body.dark-mode .sidebar h3{color:#e0e0e0}
+        body.dark-mode .loc-search{background:rgba(50,70,100,0.6);color:#e0e0e0;border-color:rgba(255,255,255,0.1)}
+        body.dark-mode .loc-search::placeholder{color:#999}
+        body.dark-mode .loc{background:rgba(50,70,100,0.6);color:#e0e0e0;border-color:rgba(255,255,255,0.08)}
+        body.dark-mode .loc:hover{box-shadow:0 12px 30px rgba(0,0,0,0.3)}
+        body.dark-mode #map{box-shadow:0 28px 80px rgba(0,0,0,0.3)}
+        body.dark-mode .map-legend{background:linear-gradient(180deg,rgba(30,50,80,0.95),rgba(20,35,60,0.9));color:#e0e0e0;border-color:rgba(255,255,255,0.1)}
+        body.dark-mode .map-link{background:#556;color:#e0e0e0;border-color:rgba(255,255,255,0.1)}
+        body.dark-mode .map-link:hover{background:#667}
+        body.dark-mode .toast{background:#1a1a2e;color:#e0e0e0}
+        body.dark-mode .hero-full{color:#e0e0e0}
+        body.dark-mode .hero-full h1{color:#e0e0e0}
+        body.dark-mode .hero-full p{color:#aaa}
+        body.dark-mode .btn-primary{background:#b8942e;box-shadow:0 6px 20px rgba(184,148,46,0.2)}
+        body.dark-mode .btn-primary:hover{box-shadow:0 8px 28px rgba(184,148,46,0.3)}
+        .btn-outline { background-color: transparent; color: var(--navy); border:2px solid rgba(15,37,64,0.08); text-decoration: none; }
+        .btn-outline:hover { background-color: var(--navy); color: var(--white); border-color: transparent; }
+        body.dark-mode .btn-outline { color: var(--navy); border-color: rgba(255,255,255,0.06); }
+        body.dark-mode .btn-outline:hover { background-color: rgba(255,255,255,0.1); color: #e0e0e0; }
+        .filter-btn{background:rgba(255,255,255,0.6);color:var(--navy);border:1px solid rgba(15,37,64,0.08);padding:10px 16px;border-radius:8px;cursor:pointer;font-weight:600;transition:all 0.3s;display:inline-flex;align-items:center;gap:6px}
+        .filter-btn:hover{background:rgba(255,255,255,0.8);transform:translateY(-2px)}
+        .filter-btn.active{background:var(--gold);color:var(--navy);box-shadow:0 6px 20px rgba(212,175,55,0.3)}
+        body.dark-mode .filter-btn{background:rgba(50,70,100,0.6);color:#e0e0e0;border-color:rgba(255,255,255,0.1)}
+        body.dark-mode .filter-btn:hover{background:rgba(60,90,120,0.7)}
+        body.dark-mode .filter-btn.active{background:#b8942e;color:var(--navy)}
+        #themeToggle{display:inline-flex;align-items:center;gap:8px}
+        body.dark-mode #themeToggle{color:#e0e0e0}
+        #themeToggle:hover{transform:scale(1.1)}
+        @media(max-width:900px){.wrap{grid-template-columns:1fr;}.sidebar{order:2;position:static;height:auto}.hero-mini{text-align:center}.hero-buttons{flex-direction:column}}
+    </style>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+<body>
+    <header>
+        <div class="container nav">
+            <a href="index.html" class="logo"><svg width="28" height="20" viewBox="0 0 24 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right:8px"><path d="M1 14L8 3l5 9 4-6 5 9H1z" fill="#d4af37"/></svg>Elite<span>Travel</span></a>
+            <button id="themeToggle" class="btn btn-outline" title="Təma"><i class="fas fa-moon"></i></button>
+        </div>
+    </header>
+
+    <div class="container">
+        <section class="hero-full">
+            <h1>Zirvələri fəth et, Təbiəti kəşf et</h1>
+            <p>TripO ilə ən yüksək zirvələrə və dağlıq bölgələrə səyahət edin — macəra, təbiət və sakitlik bir arada.</p>
+            <div class="hero-buttons">
+                <a href="index.html" class="btn btn-primary">
+                    <i class="fas fa-home"></i> Ana Səhifəyə Qayıt
+                </a>
+            </div>
+        </section>
+
+        <section class="hero-mini">
+            <h2 style="margin:0 0 16px;font-size:1.2rem">Kateqoriyalar</h2>
+            <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center">
+                <button class="filter-btn active" data-filter="all"><i class="fas fa-globe"></i> Hamısı</button>
+                <button class="filter-btn" data-filter="mountain"><i class="fas fa-mountain"></i> Dağlar</button>
+                <button class="filter-btn" data-filter="mudvolcano"><i class="fas fa-fire"></i> Palçıq Vulkanları</button>
+                <button class="filter-btn" data-filter="volcano"><i class="fas fa-volcano"></i> Vulkanlar</button>
+            </div>
+        </section>
+
+        <div class="wrap">
+            <aside class="sidebar">
+                <h3>Yerlər</h3>
+                <div style="background:rgba(255,255,255,0.6);border-radius:10px;padding:10px 12px;margin-bottom:12px;font-size:13px;border-left:3px solid #2b8a3e">
+                    <div style="font-weight:700;margin-bottom:6px">Legenda</div>
+                    <div style="display:flex;flex-direction:column;gap:4px;color:#333">
+                        <div><span style="display:inline-block;width:10px;height:10px;background:#2e8b57;border-radius:50%;margin-right:6px;"></span><strong>Dağlar</strong></div>
+                        <div><span style="display:inline-block;width:10px;height:10px;background:#ff8c00;border-radius:50%;margin-right:6px;"></span><strong>Palçıq Vulkanları</strong></div>
+                        <div><span style="display:inline-block;width:10px;height:10px;background:#e53935;border-radius:50%;margin-right:6px;"></span><strong>Vulkanlar</strong></div>
+                    </div>
+                </div>
+                <input id="locSearch" class="loc-search" placeholder="Axtar..." />
+                <div id="list"></div>
+            </aside>
+
+            <main>
+                <div id="map"></div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+    (function(){
+        const locations = [
+            { id: 'shahdag', name: 'Şahdağ', lat: 41.2725, lng: 48.0044, type: 'mountain', height: '4243m', desc: 'Şahdağ zirvəsi (Mount Shahdagh), Böyük Qafqaz; milli park ərazisi.' },
+            { id: 'babadagh', name: 'Babadağ (İsmayıllı)', lat: 41.02, lng: 48.304167, type: 'mountain', height: '3629m', desc: 'Babadağ — İsmayıllı rayonu, müqəddəs zirvə və yürüş marşrutları.' },
+            { id: 'tufandagh', name: 'Tufandağ', lat: 41.1625, lng: 47.991389, type: 'mountain', height: '4191m', desc: 'Tufandağ — Böyük Qafqazda üçüncü ən yüksək zirvələrdən biridir.' },
+            { id: 'bazarduzu', name: 'Bazardüzü', lat: 41.224444, lng: 47.858333, type: 'mountain', height: '4466m', desc: 'Bazardüzü — Azərbaycan və Rusiya sərhədində, ölkənin ən yüksək dağlarından.' },
+            { id: 'lokbatan', name: 'Lökbatan Palçıq Vulkanı', lat: 40.304444, lng: 49.709167, type: 'mudvolcano', height: '≈100m', desc: 'Lökbatan — Abşeron yarımadasında tanınmış palçıq vulkanı.' },
+            { id: 'gobustan', name: 'Qobustan', lat: 40.0841667, lng: 49.4158333, type: 'mudvolcano', height: '—', desc: 'Qobustan və ətrafındakı palçıq vulkanları və tarixi qaya rəsmləri. (UNESCO/Wikipedia)' },
+            { id: 'galadag', name: 'Palçıq Vulkanları (Absheron)', lat: 40.2833, lng: 49.7000, type: 'mudvolcano', height: '≈70m', desc: 'Absheron və ətraf sahələrdəki palçıq vulkan kompleksi (approximate; needs per-cone verification).' },
+            { id: 'topchanlar', name: 'Topçanlar Palçıq Vulkanı', lat: 40.35, lng: 49.9000, type: 'mudvolcano', height: '≈65m', desc: 'Topçanlar — Abşeron yarımadası yaxınlığında palçıq vulkan nümunəsi (approximate; verify exact cone).' },
+            { id: 'ivanov', name: 'İvanov Vulkanı', lat: 40.315, lng: 49.680, type: 'volcano', height: '—', desc: 'İvanov Vulkanı — Abşeron yarımadası ərazisində fəal palçıq vulkanı; qaynar qazlar və bitum.' },
+            { id: 'yasalmaz', name: 'Yaşalmazlı Vulkanı', lat: 40.270, lng: 49.960, type: 'volcano', height: '—', desc: 'Yaşalmazlı — Abşeron sahəsində fəal vulkanik aktivlik; qaynar eqzosmik qazlar.' }
+        ];
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const mapEl = document.getElementById('map');
+            if (!mapEl) return;
+
+            try {
+                const recMap = L.map('map').setView([40.3, 47.5], 7);
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '© OpenStreetMap contributors',
+                    maxZoom: 19,
+                    minZoom: 6
+                }).addTo(recMap);
+                
+                // Constrain map bounds to Azerbaijan region
+                const azerbaijanBounds = L.latLngBounds([39.0, 44.0], [41.6, 51.0]);
+                recMap.setMaxBounds(azerbaijanBounds.pad(0.1));
+                recMap.on('drag', function() { recMap.panInsideBounds(azerbaijanBounds, { animate: false }); });
+
+                const listEl = document.getElementById('list');
+                const searchInput = document.getElementById('locSearch');
+
+                function createIcon(startColor, endColor, stroke) {
+                    const svg = "<svg xmlns='http://www.w3.org/2000/svg' width='28' height='36' viewBox='0 0 36 48'><defs><linearGradient id='g' x1='0' x2='0' y1='0' y2='1'><stop offset='0' stop-color='"+startColor+"'/><stop offset='1' stop-color='"+endColor+"'/></linearGradient></defs><path d='M18 0 C11 0 6 7 6 13 C6 25 18 48 18 48 C18 48 30 25 30 13 C30 7 25 0 18 0 Z' fill='url(#g)' stroke='"+stroke+"' stroke-width='1'/><circle cx='18' cy='13' r='5' fill='#fff' opacity='0.92'/></svg>";
+                    return L.icon({ iconUrl: 'data:image/svg+xml;utf8,' + encodeURIComponent(svg), iconSize: [28,36], iconAnchor: [14,36], popupAnchor: [0,-34] });
+                }
+
+                // Colors: Mountains (green), Mud volcanoes (orange), Volcanoes (red)
+                const mountainIcon = createIcon('#6bbf59','#2b8a3e','#1f5f2e');
+                const mudVolcanoIcon = createIcon('#ffb86b','#f08c2e','#b35e17');
+                const volcanoIcon = createIcon('#e53935','#b71c1c','#7a1a1a');
+
+                const recMarkers = {};
+
+                // add a small legend on the map showing categories
+                try {
+                    const legendEl = document.createElement('div');
+                    legendEl.className = 'map-legend';
+                    legendEl.innerHTML = '<div style="font-weight:700;margin-bottom:6px">Legenda</div>' +
+                        '<div style="display:flex;flex-direction:column;gap:6px">' +
+                        '<div><span style="display:inline-block;width:12px;height:12px;background:#2e8b57;border:1px solid #1f5f2e;margin-right:8px;"></span>Dağlar</div>' +
+                        '<div><span style="display:inline-block;width:12px;height:12px;background:#ff8c00;border:1px solid #b35e17;margin-right:8px;"></span>Palçıq Vulkanları</div>' +
+                        '<div><span style="display:inline-block;width:12px;height:12px;background:#e53935;border:1px solid #7a1a1a;margin-right:8px;"></span>Vulkanlar</div>' +
+                        '</div>';
+                    mapEl.appendChild(legendEl);
+                } catch (e) { /* non-fatal */ }
+
+                locations.forEach(loc => {
+                    const icon = loc.type === 'mountain' ? mountainIcon : (loc.type === 'mudvolcano' ? mudVolcanoIcon : volcanoIcon);
+                    const marker = L.marker([loc.lat, loc.lng], { icon }).addTo(recMap);
+
+                    const gMapsSearch = 'https://www.google.com/maps/search/?api=1&query=' + loc.lat + ',' + loc.lng;
+                    const gMapsDir = 'https://www.google.com/maps/dir/?api=1&destination=' + loc.lat + ',' + loc.lng;
+                    const popupContent = '<div class="popup-card" style="max-width:260px"><div class="title">'+loc.name+'</div><div class="meta">📏 Hündürlük: '+loc.height+'</div><div class="desc">'+loc.desc+'</div><div class="actions"><a class="map-link" href="'+gMapsSearch+'" target="_blank" rel="noopener">Google Maps</a> <a class="map-link" href="'+gMapsDir+'" target="_blank" rel="noopener">Yol</a> <button class="map-link copy-coords" data-lat="'+loc.lat+'" data-lng="'+loc.lng+'">Kopyala</button></div></div>';
+                    marker.bindPopup(popupContent, { maxWidth: 280 });
+
+                    recMarkers[loc.id] = marker;
+
+                    const item = document.createElement('div'); item.className = 'loc'; item.dataset.type = loc.type;
+                    const colorFill = loc.type === 'mountain' ? '#2e8b57' : (loc.type === 'mudvolcano' ? '#ff8c00' : '#e53935');
+                    const colorStroke = loc.type === 'mountain' ? '#1f5f2e' : (loc.type === 'mudvolcano' ? '#b35e17' : '#7a1a1a');
+                    const iconSvg = '<svg width="12" height="12" viewBox="0 0 12 12"><circle cx="6" cy="6" r="5" fill="'+colorFill+'" stroke="'+colorStroke+'" stroke-width="1"/></svg>';
+                    item.innerHTML = '<div style="font-size:14px;display:flex;align-items:center;justify-content:center;">'+iconSvg+'</div><div style="flex:1"><strong>'+loc.name+'</strong><div style="font-size:12px;font-weight:600;margin:2px 0">📏 '+loc.height+'</div><div style="font-size:13px;color:#666">'+loc.desc+'</div><div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap"><a class="map-link" href="'+gMapsSearch+'" target="_blank" rel="noopener">Google</a> <a class="map-link" href="'+gMapsDir+'" target="_blank" rel="noopener">Yol</a> <button class="map-link copy-coords" data-lat="'+loc.lat+'" data-lng="'+loc.lng+'">Kopyala</button></div></div>';
+                    item.addEventListener('click', function(e){ if (e.target.closest('.map-link')) return; recMap.setView([loc.lat, loc.lng], 10); marker.openPopup(); });
+                    listEl.appendChild(item);
+                });
+
+                // delegate copy
+                document.addEventListener('click', function(e){ const btn = e.target.closest('.copy-coords'); if (!btn) return; const lat = btn.dataset.lat; const lng = btn.dataset.lng; if (!lat || !lng) return; const text = lat + ', ' + lng; if (navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(()=> showToast('Koordinatlar kopyalandı')); } else { const ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); showToast('Koordinatlar kopyalandı'); } catch (err) { alert('Kopyalama mümkün olmadı — ' + text); } ta.remove(); } });
+
+                function showToast(msg){ let t = document.querySelector('.toast'); if (!t){ t = document.createElement('div'); t.className = 'toast'; document.body.appendChild(t); } t.textContent = msg; t.style.opacity = '1'; setTimeout(()=> t.style.opacity = '0', 1400); }
+
+                if (searchInput){ searchInput.addEventListener('input', function(){ const q = this.value.trim().toLowerCase(); Array.from(listEl.children).forEach(child => { const txt = child.innerText.toLowerCase(); child.style.display = q === '' || txt.indexOf(q) !== -1 ? '' : 'none'; }); }); }
+
+                // back button hide
+                const heroBackBtn = document.querySelector('.hero-mini .back');
+                if (heroBackBtn){ heroBackBtn.style.transition = 'opacity 0.22s ease'; const backHideOffset = 80; function updateBack(){ if (window.scrollY > backHideOffset) heroBackBtn.style.opacity = '0'; else heroBackBtn.style.opacity = '1'; } updateBack(); window.addEventListener('scroll', updateBack); }
+
+                setTimeout(()=>{ try { recMap.invalidateSize(); } catch(e){} }, 200);
+                let resizeTimer; window.addEventListener('resize', ()=>{ clearTimeout(resizeTimer); resizeTimer = setTimeout(()=>{ try { recMap.invalidateSize(); } catch(e){} }, 150); });
+
+                console.log('Recommendations map initialized');
+            } catch (err) {
+                console.error('Failed to initialize recommendations map', err);
+            }
+        });
+
+        // Filter functionality
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const filterValue = this.dataset.filter;
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Filter sidebar items and markers
+                document.querySelectorAll('.loc').forEach(item => {
+                    if (filterValue === 'all' || item.dataset.type === filterValue) {
+                        item.style.display = '';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+                
+                // Filter markers on map - remove or add them
+                const latLngs = [];
+                
+                locations.forEach(loc => {
+                    if (filterValue === 'all' || loc.type === filterValue) {
+                        // Show marker
+                        if (recMarkers[loc.id]) {
+                            if (!recMap.hasLayer(recMarkers[loc.id])) {
+                                recMarkers[loc.id].addTo(recMap);
+                            }
+                            latLngs.push(L.latLng(loc.lat, loc.lng));
+                        }
+                    } else {
+                        // Hide marker
+                        if (recMarkers[loc.id] && recMap.hasLayer(recMarkers[loc.id])) {
+                            recMap.removeLayer(recMarkers[loc.id]);
+                        }
+                    }
+                });
+                
+                // Fit map bounds to visible markers with delay
+                setTimeout(() => {
+                    if (latLngs.length > 0) {
+                        const bounds = L.latLngBounds(latLngs);
+                        // Temporarily remove maxBounds to allow fitBounds to work
+                        recMap.setMaxBounds(null);
+                        recMap.fitBounds(bounds, { padding: [50, 50], maxZoom: 13 });
+                        // Re-apply maxBounds after fitting
+                        const azerbaijanBounds = L.latLngBounds([39.0, 44.0], [41.6, 51.0]);
+                        recMap.setMaxBounds(azerbaijanBounds.pad(0.1));
+                    } else {
+                        // Default to Azerbaijan bounds if no markers visible
+                        recMap.setView([40.3, 47.5], 7);
+                    }
+                }, 150);
+            });
+        });
+
+        // Night mode toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        if (savedTheme === 'dark') { document.body.classList.add('dark-mode'); const icon = themeToggle.querySelector('i'); if (icon) icon.className = 'fas fa-sun'; }
+        
+        themeToggle.addEventListener('click', function() {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            const icon = themeToggle.querySelector('i');
+            if (icon) icon.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+        });
+    })();
+    </script>
+</body>
+</html>

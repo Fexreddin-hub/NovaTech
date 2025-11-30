@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="az">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Mən Turistəm — EliteTravel</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0f1b2d; --card:rgba(15,27,45,0.64); --glass:rgba(255,255,255,0.04);
+      --accent:#f7c74f; --teal:#6fe0d4; --muted:rgba(234,246,255,0.85);
+      --radius:22px; --shadow: 0 14px 50px rgba(2,6,23,0.78);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial;color:#eaf6ff;background:#07101a}
+
+    /* Background: blurred mountain lake with dark overlay */
+    .bg-img{position:fixed;inset:0;background-image:url('https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=2000&q=80');background-size:cover;background-position:center;filter:blur(6px) saturate(0.85);transform:scale(1.03);z-index:0}
+    .bg-overlay{position:fixed;inset:0;background:linear-gradient(180deg,rgba(3,9,18,0.55),rgba(2,6,12,0.7));z-index:1}
+
+    .container{position:relative;z-index:2;max-width:1200px;margin:48px auto;padding:28px}
+
+    /* Top navbar (dark translucent) */
+    .navbar{display:flex;align-items:center;justify-content:space-between;padding:12px 18px;border-radius:20px;background:linear-gradient(180deg,rgba(15,21,34,0.45),rgba(8,14,24,0.30));backdrop-filter:blur(8px);box-shadow:var(--shadow);border:1px solid rgba(255,255,255,0.03)}
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand .logo{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#ffd88a);display:flex;align-items:center;justify-content:center;color:#07101a;font-weight:800}
+    .brand h1{font-size:1rem;margin:0}
+    .nav-actions{display:flex;gap:10px}
+    .pill{padding:10px 16px;border-radius:999px;border:0;cursor:pointer;font-weight:700}
+    .pill.yellow{background:linear-gradient(90deg,var(--accent),#ffd88a);color:#07101a;box-shadow:0 12px 36px rgba(247,199,79,0.12)}
+    .pill.teal{background:linear-gradient(90deg,var(--teal),#bff8ec);color:#04232a;box-shadow:0 12px 36px rgba(111,224,212,0.08)}
+
+    /* Hero */
+    .hero{display:flex;align-items:center;justify-content:center;padding:48px 16px;margin-top:18px}
+    .hero-card{max-width:920px;width:100%;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));border-radius:26px;padding:40px;box-shadow:var(--shadow);border:1px solid rgba(255,255,255,0.04);text-align:center}
+    .hero h2{font-size:2.15rem;margin:0 0 10px;color:#ffffff}
+    .hero p{color:var(--muted);margin:0 0 22px}
+    .hero .cta-row{display:flex;gap:14px;justify-content:center}
+    .cta-pill{min-width:160px;padding:14px 18px;border-radius:999px;font-weight:800}
+    .cta-pill.teal{background:linear-gradient(90deg,var(--teal),#bff8ec);color:#04232a}
+    .cta-pill.gold{background:linear-gradient(90deg,var(--accent),#ffd88a);color:#07101a}
+    .hero .cta-shadow{position:absolute;left:50%;transform:translateX(-50%);top:85px;width:420px;height:120px;background:radial-gradient(circle at center, rgba(247,199,79,0.08), transparent 45%);filter:blur(18px);pointer-events:none}
+
+    /* Sections */
+    .section{margin-top:28px}
+    .section h3{margin:0 0 12px;color:#eaf6ff}
+
+    /* Featured mountains grid */
+    .mountains{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+    .m-card{background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));padding:18px;border-radius:20px;border:1px solid rgba(255,217,95,0.06);box-shadow:0 18px 44px rgba(2,10,20,0.6);position:relative;overflow:visible}
+    .m-top{display:flex;gap:12px;align-items:center}
+    .m-ico{width:58px;height:58px;border-radius:14px;background:linear-gradient(135deg,rgba(255,255,255,0.02),rgba(15,21,34,0.12));display:flex;align-items:center;justify-content:center;font-size:1.6rem}
+    .m-name{font-weight:800}
+    .m-meta{color:var(--muted);font-size:0.9rem}
+    .vis-row{margin-top:12px}
+    .vis-bg{height:12px;border-radius:999px;background:linear-gradient(90deg,rgba(255,255,255,0.03),rgba(255,255,255,0.02));overflow:hidden}
+    .vis-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--accent),#ffd88a);box-shadow:0 8px 26px rgba(247,199,79,0.12);transition:width 1s cubic-bezier(.16,.84,.35,1)}
+
+    /* Equipment */
+    .equip-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+    .equip{background:linear-gradient(180deg,rgba(255,255,255,0.01),rgba(255,255,255,0.02));padding:14px;border-radius:16px;border:1px solid rgba(111,224,212,0.06);display:flex;gap:12px;align-items:center}
+    .equip .ico{width:52px;height:52px;border-radius:12px;background:linear-gradient(90deg,rgba(111,224,212,0.14),rgba(111,224,212,0.06));display:flex;align-items:center;justify-content:center;color:#04232a}
+    .equip .title{font-weight:700}
+
+    /* Map glass panel */
+    .map-panel{margin-top:12px;border-radius:20px;background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.06);box-shadow:0 20px 60px rgba(2,6,23,0.7);overflow:hidden}
+    .map-header{padding:12px 16px;border-bottom:1px solid rgba(255,255,255,0.02);display:flex;align-items:center;justify-content:space-between}
+    .map-body{height:360px;background-image:url('https://images.unsplash.com/photo-1503264116251-35a269479413?auto=format&fit=crop&w=1400&q=60');background-size:cover;background-position:center;position:relative}
+    .point{position:absolute;width:12px;height:12px;border-radius:50%;background:var(--teal);border:2px solid rgba(255,255,255,0.08);box-shadow:0 12px 40px rgba(111,224,212,0.22);transform:translate(-50%,-50%)}
+    .point.gold{background:var(--accent);box-shadow:0 12px 50px rgba(247,199,79,0.20)}
+
+    /* Safety tips row */
+    .tips{display:flex;gap:12px;margin-top:14px;overflow:auto;padding-bottom:6px}
+    .tip{flex:0 0 auto;padding:10px 14px;border-radius:999px;background:linear-gradient(180deg,rgba(255,255,255,0.01),rgba(255,255,255,0.02));border:1px solid rgba(255,255,255,0.03);display:flex;gap:10px;align-items:center;min-width:170px}
+
+    footer{margin-top:28px;color:var(--muted);text-align:center}
+
+    @media(max-width:880px){.hero{padding:24px}.hero-card{padding:22px}.hero h2{font-size:1.6rem}.mountains{grid-template-columns:1fr}.equip-grid{grid-template-columns:repeat(2,1fr)}}
+  </style>
+</head>
+<body>
+  <div class="bg-img" aria-hidden="true"></div>
+  <div class="bg-overlay" aria-hidden="true"></div>
+
+  <div class="container">
+    <div class="navbar">
+      <div class="brand"><div class="logo">ET</div><h1>EliteTravel</h1></div>
+      <div class="nav-actions">
+        <button class="pill teal">Xəritə</button>
+        <button class="pill yellow">Mən turistəm</button>
+      </div>
+    </div>
+
+    <section class="hero">
+      <div class="hero-card">
+        <h2>Səyahətini planlaşdır, macəranı seç!</h2>
+        <p>EliteTravel ilə dağlıq marşrutları kəşf et, avadanlıq tövsiyələrini al və təhlükəsizlik qaydalarına bax.</p>
+        <div style="position:relative;margin-top:8px">
+          <div class="cta-row">
+            <button class="cta-pill teal">Xəritə</button>
+            <button class="cta-pill gold">Mən turistəm</button>
+          </div>
+          <div class="hero .cta-shadow" aria-hidden="true" style="position:absolute;left:50%;transform:translateX(-50%);top:64px;width:420px;height:110px;background:radial-gradient(circle at center, rgba(247,199,79,0.06), transparent 48%);filter:blur(20px);pointer-events:none;border-radius:260px"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h3>Önə çıxan dağlar</h3>
+      <div class="mountains">
+        <div class="m-card">
+          <div class="m-top"><div class="m-ico">⛰️</div><div><div class="m-name">Şahdağ</div><div class="m-meta">3,200 m • Qabaqcıl marşrut</div></div></div>
+          <div class="vis-row"><div class="vis-bg"><div class="vis-fill" style="width:85%"></div></div></div>
+        </div>
+
+        <div class="m-card">
+          <div class="m-top"><div class="m-ico">🗻</div><div><div class="m-name">Bazardüzü</div><div class="m-meta">4,466 m • Çətin</div></div></div>
+          <div class="vis-row"><div class="vis-bg"><div class="vis-fill" style="width:62%"></div></div></div>
+        </div>
+
+        <div class="m-card">
+          <div class="m-top"><div class="m-ico">🏔️</div><div><div class="m-name">Tufandağ</div><div class="m-meta">2,700 m • Orta</div></div></div>
+          <div class="vis-row"><div class="vis-bg"><div class="vis-fill" style="width:48%"></div></div></div>
+        </div>
+
+        <div class="m-card">
+          <div class="m-top"><div class="m-ico">🌋</div><div><div class="m-name">Lökbatan</div><div class="m-meta">600 m • Yüngül</div></div></div>
+          <div class="vis-row"><div class="vis-bg"><div class="vis-fill" style="width:32%"></div></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h3>Avadanlıq və geyim</h3>
+      <div class="equip-grid">
+        <div class="equip"><div class="ico">🥾</div><div><div class="title">Yürüş Botları</div><div style="color:var(--muted);font-size:13px">Suya davamlı, sərt səthlər üçün</div></div></div>
+        <div class="equip"><div class="ico">🎒</div><div><div class="title">Sırt Çantası</div><div style="color:var(--muted);font-size:13px">30–45 L, ergonomik</div></div></div>
+        <div class="equip"><div class="ico">🧥</div><div><div class="title">Termal Gödəkçə</div><div style="color:var(--muted);font-size:13px">Yüngül və isti</div></div></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h3>Interaktiv xəritə</h3>
+      <div class="map-panel">
+        <div class="map-header"><div style="font-weight:700">Xəritə</div><div style="color:var(--muted)">Dağ nöqtələrini seçin</div></div>
+        <div class="map-body" id="mapBody">
+          <div class="point" style="left:28%;top:40%" title="Şahdağ"></div>
+          <div class="point gold" style="left:50%;top:22%" title="Bazardüzü"></div>
+          <div class="point" style="left:68%;top:52%" title="Tufandağ"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h3>Təhlükəsizlik tövsiyələri</h3>
+      <div class="tips">
+        <div class="tip"><div style="font-size:20px">💧</div><div><strong>Su</strong><div style="color:var(--muted);font-size:13px">Yetərli ehtiyat</div></div></div>
+        <div class="tip"><div style="font-size:20px">⚠️</div><div><strong>Diqqət</strong><div style="color:var(--muted);font-size:13px">Hava dəyişir</div></div></div>
+        <div class="tip"><div style="font-size:20px">🗺️</div><div><strong>Xəritə</strong><div style="color:var(--muted);font-size:13px">Offline nüsxə</div></div></div>
+        <div class="tip"><div style="font-size:20px">📡</div><div><strong>Kontakt</strong><div style="color:var(--muted);font-size:13px">SOS və paylaşımlar</div></div></div>
+      </div>
+    </section>
+
+    <footer>© EliteTravel — Mən Turistəm · Mockup UI</footer>
+  </div>
+
+  <script>
+    // small map interactivity and tooltips
+    document.querySelectorAll('.point').forEach(p => {
+      p.addEventListener('click', () => alert(p.title + '\nMarşrut və məlumatlar buraya əlavə olunacaq.'));
+      p.style.transition = 'transform .18s ease, box-shadow .18s ease';
+      p.addEventListener('mouseenter', ()=> p.style.transform='translate(-50%,-50%) scale(1.25)');
+      p.addEventListener('mouseleave', ()=> p.style.transform='translate(-50%,-50%) scale(1)');
+    });
+  </script>
+</body>
+</html>

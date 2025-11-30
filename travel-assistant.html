@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="az">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Səyahət Köməkçisi — EliteTravel</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root{
+      --navy:#0f2540; --forest:#1f6f52; --cream:#fef7ef; --gold:#d4af37; --white:#ffffff; --stone:#6b7280; --accent:linear-gradient(90deg,#f6d365 0%, #fda085 100%);
+      --header-height:96px;
+    }
+    *{box-sizing:border-box}
+    body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;background:var(--cream);color:var(--navy);margin:0}
+    header{background:rgba(255,255,255,0.92);backdrop-filter:blur(8px);position:fixed;top:0;width:100%;z-index:1000;height:var(--header-height);box-shadow:0 4px 18px rgba(12,35,64,0.08);border-radius:0 0 18px 18px}
+    .container{max-width:1200px;margin:0 auto;padding:0 20px}
+    .header-container{display:flex;align-items:center;gap:3rem;padding:0 3.5rem 0 9.5rem;min-height:var(--header-height)}
+    .logo{font-weight:700;font-size:1.6rem;color:var(--navy);text-decoration:none;display:flex;align-items:center}
+    .logo span{color:var(--gold);margin-left:6px}
+    nav{flex:1}
+    nav ul{display:flex;list-style:none;gap:2rem;padding:0;margin:0}
+    nav ul li a{color:var(--navy);text-decoration:none;font-weight:600}
+    .header-actions{display:flex;align-items:center;gap:1rem}
+
+    main{padding:calc(var(--header-height) + 28px) 20px 60px}
+    .hero{background:linear-gradient(135deg,#eaf5ff,#fef7ef);padding:40px;border-radius:12px;margin-bottom:20px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+
+    /* Cards */
+    .card{background:var(--white);border-radius:12px;padding:16px;box-shadow:0 10px 30px rgba(11,28,50,0.06)}
+    .card h3{margin:0 0 8px}
+
+    /* Itinerary */
+    .itinerary-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px}
+    .it-row{display:flex;gap:8px;align-items:center}
+    .it-row input{flex:1;padding:10px;border:1px solid #e6e9ee;border-radius:8px}
+
+    /* Packing checklist */
+    .checklist{display:flex;flex-direction:column;gap:8px}
+    .checklist label{display:flex;align-items:center;gap:10px}
+
+    /* Converter */
+    .converter-row{display:flex;gap:8px}
+    .converter-row input{flex:1;padding:10px;border-radius:8px;border:1px solid #e6e9ee}
+
+    /* Responsive tweaks */
+    @media (max-width:768px){.header-container{padding:0 20px}.logo{font-size:1.2rem}}
+    footer{padding:24px;text-align:center;color:var(--stone)}
+  </style>
+</head>
+<body>
+  <!-- Header (copied from homepage) -->
+  <header>
+    <div class="container header-container">
+      <a href="index.html" class="logo"><svg width="28" height="20" viewBox="0 0 24 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right:8px"><path d="M1 14L8 3l5 9 4-6 5 9H1z" fill="#d4af37"/></svg>Elite<span>Travel</span></a>
+      <nav>
+        <ul>
+          <li><a href="index.html">Ana Səhifə</a></li>
+          <li><a href="mountain-equipment.html">Avadanlıq</a></li>
+          <li><a href="outfit.html">Geyim Seçici</a></li>
+          <li><a href="safety.html">Təhlükəsizlik</a></li>
+          <li><a href="travel-assistant.html" class="active">Səyahət Köməkçisi</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <button id="themeToggle" class="btn" aria-pressed="false" title="Gecə rejimi"><i class="fas fa-moon"></i></button>
+        <div style="display:flex;align-items:center;gap:8px">
+          <button class="btn btn-outline" id="langBtn">AZ</button>
+          <a href="auth.html" class="btn btn-primary">Səyahətə Başla</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero card">
+      <h1>Səyahət Köməkçisi</h1>
+      <p>Planlaşdırma, qablaşdırma siyahısı, çevricilər və təcili əlaqələr — hamısı bir yerdə.</p>
+    </section>
+
+    <section class="grid">
+      <div class="card">
+        <h3>İtinerary Planlayıcı</h3>
+        <p>Gediş/gəliş və fəaliyyətləri əlavə edin.</p>
+        <div>
+          <div style="display:flex;gap:8px;margin-bottom:8px">
+            <input id="itInput" placeholder="Məsələn: 1-ci gün — Şahdağ yürüşü" />
+            <button id="addItBtn">Əlavə et</button>
+          </div>
+          <ul id="itList" class="itinerary-list"></ul>
+          <div style="margin-top:8px;text-align:right"><button id="clearIt">Sıfırla</button></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Qablaşdırma Siyahısı</h3>
+        <p>Öz siyahınızı yaradın və saxlayın.</p>
+        <div>
+          <div style="display:flex;gap:8px;margin-bottom:8px">
+            <input id="packInput" placeholder="Məsələn: Trekking ayakkabısı" />
+            <button id="addPackBtn">Əlavə et</button>
+          </div>
+          <div id="packList" class="checklist"></div>
+          <div style="margin-top:8px;text-align:right"><button id="clearPack">Sıfırla</button></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Çevrici (km ↔ mi)</h3>
+        <div class="converter-row">
+          <input id="kmInput" placeholder="km" />
+          <input id="miInput" placeholder="mi" />
+        </div>
+        <p style="margin-top:8px;color:var(--stone)">Rəqəmləri daxil edin — digəri avtomatik doldurulacaq.</p>
+      </div>
+
+      <div class="card">
+        <h3>Təcili Əlaqələr</h3>
+        <p>Yerel təcili xidmətlər və bizim dəstək xəttimiz.</p>
+        <ul style="list-style:none;padding:0;margin:0">
+          <li><strong>Fövqəladə Yardım (112)</strong> — <a href="tel:112">Çağır</a></li>
+          <li><strong>Təcili Tibbi (103)</strong> — <a href="tel:103">Çağır</a></li>
+          <li><strong>EliteTravel Dəstək</strong> — <a href="tel:+994123456789">+994 12 345 67 89</a></li>
+        </ul>
+      </div>
+    </section>
+
+    <section style="margin-top:18px" class="card">
+      <h3>Sürətli Məqalələr</h3>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:12px">
+        <article style="padding:12px;border-radius:8px;background:#fafafa"><strong>Dağda təhlükəsizlik</strong><p style="margin:6px 0;color:var(--stone)">Hava, naviqasiya, təchizat yoxlamaları.</p></article>
+        <article style="padding:12px;border-radius:8px;background:#fafafa"><strong>Yemək və Hidrasiya</strong><p style="margin:6px 0;color:var(--stone)">Gün ərzində su və enerji tədarükü.</p></article>
+        <article style="padding:12px;border-radius:8px;background:#fafafa"><strong>Avadanlıq icarəsi</strong><p style="margin:6px 0;color:var(--stone)">Yerel mağazalar və icarə nöqtələri.</p></article>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container">© <span id="year"></span> EliteTravel — Bütün hüquqlar qorunur.</div>
+  </footer>
+
+  <script>
+    // Utilities
+    const $ = s => document.querySelector(s);
+    const $$ = s => Array.from(document.querySelectorAll(s));
+
+    // Itinerary
+    const itInput = $('#itInput'); const itList = $('#itList'); const addItBtn = $('#addItBtn'); const clearIt = $('#clearIt');
+    function loadIt(){ try{ const data = JSON.parse(localStorage.getItem('etinerary_v1')||'[]'); data.forEach(i=>appendIt(i)); }catch(e){} }
+    function saveIt(){ const items = $$('#itList li').map(li=>li.dataset.text); localStorage.setItem('etinerary_v1', JSON.stringify(items)); }
+    function appendIt(text){ const li = document.createElement('li'); li.className='card it-row'; li.dataset.text=text; li.innerHTML=`<div style="flex:1">${escapeHtml(text)}</div><button class="remove-it">Sil</button>`; itList.appendChild(li); li.querySelector('.remove-it').addEventListener('click', ()=>{ li.remove(); saveIt(); }); }
+    addItBtn.addEventListener('click', ()=>{ const v=itInput.value.trim(); if(!v) return; appendIt(v); itInput.value=''; saveIt(); });
+    clearIt.addEventListener('click', ()=>{ itList.innerHTML=''; saveIt(); });
+
+    // Packing checklist
+    const packInput = $('#packInput'); const packList = $('#packList'); const addPackBtn = $('#addPackBtn'); const clearPack = $('#clearPack');
+    function loadPack(){ try{ const data = JSON.parse(localStorage.getItem('pack_v1')||'[]'); data.forEach(p=>appendPack(p.checked,p.text)); }catch(e){} }
+    function savePack(){ const data = $$('#packList .pack-item').map(el=>({text:el.dataset.text,checked:el.querySelector('input').checked})); localStorage.setItem('pack_v1', JSON.stringify(data)); }
+    function appendPack(checked,text){ const id = 'p'+Math.random().toString(36).slice(2,9); const div = document.createElement('div'); div.className='pack-item'; div.dataset.text=text; div.innerHTML=`<label><input type="checkbox" ${checked? 'checked':''}/> <span style="margin-left:6px">${escapeHtml(text)}</span></label> <button class="remove-pack" style="margin-left:8px">Sil</button>`; packList.appendChild(div); div.querySelector('input').addEventListener('change', savePack); div.querySelector('.remove-pack').addEventListener('click', ()=>{ div.remove(); savePack(); }); }
+    addPackBtn.addEventListener('click', ()=>{ const v=packInput.value.trim(); if(!v) return; appendPack(false,v); packInput.value=''; savePack(); });
+    clearPack.addEventListener('click', ()=>{ packList.innerHTML=''; savePack(); });
+
+    // Converter
+    const kmInput = $('#kmInput'), miInput = $('#miInput');
+    function kmToMi(k){ return (k*0.621371).toFixed(3); }
+    function miToKm(m){ return (m/0.621371).toFixed(3); }
+    kmInput && kmInput.addEventListener('input', ()=>{ const v=parseFloat(kmInput.value); if(isNaN(v)){ miInput.value=''; return;} miInput.value = kmToMi(v); });
+    miInput && miInput.addEventListener('input', ()=>{ const v=parseFloat(miInput.value); if(isNaN(v)){ kmInput.value=''; return;} kmInput.value = miToKm(v); });
+
+    // small helpers
+    function escapeHtml(s){ return String(s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+    // init
+    document.addEventListener('DOMContentLoaded', ()=>{
+      loadIt(); loadPack(); document.getElementById('year').textContent = new Date().getFullYear();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Safety Section - TripO</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            background: linear-gradient(135deg, #e8f4f8 0%, #f0f9fc 100%);
+            min-height: 100vh;
+            padding: 60px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Section Header */
+        .safety-header {
+            text-align: center;
+            margin-bottom: 60px;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .safety-header h2 {
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 700;
+            color: #1a3a4a;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+        }
+
+        .safety-header p {
+            font-size: 1.05rem;
+            color: #5a7a8a;
+            font-weight: 400;
+            line-height: 1.6;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        /* Cards Grid */
+        .safety-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        /* Individual Card */
+        .safety-card {
+            background: #ffffff;
+            border-radius: 35px;
+            padding: 45px 35px;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+            box-shadow: 0 8px 32px rgba(26, 58, 74, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            animation: fadeInUp 0.8s ease-out;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .safety-card:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .safety-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .safety-card:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .safety-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 24px 48px rgba(26, 58, 74, 0.15);
+            background: linear-gradient(135deg, #ffffff 0%, #f8fbfc 100%);
+        }
+
+        /* Icon Container */
+        .icon-box {
+            width: 100px;
+            height: 100px;
+            border-radius: 28px;
+            background: linear-gradient(135deg, #ff9a56 0%, #ff6b9d 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 50px;
+            margin-bottom: 28px;
+            box-shadow: 0 12px 30px rgba(255, 107, 157, 0.25);
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+        }
+
+        .safety-card:hover .icon-box {
+            transform: scale(1.1) rotateY(5deg);
+            box-shadow: 0 16px 40px rgba(255, 107, 157, 0.35);
+        }
+
+        /* Title */
+        .safety-card h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #1a3a4a;
+            margin-bottom: 14px;
+            letter-spacing: -0.3px;
+        }
+
+        /* Description */
+        .safety-card p {
+            font-size: 0.95rem;
+            color: #6a8a9a;
+            line-height: 1.65;
+            font-weight: 400;
+        }
+
+        /* CTA Button (Optional) */
+        .safety-card a {
+            margin-top: 20px;
+            padding: 10px 24px;
+            background: linear-gradient(135deg, #ff9a56 0%, #ff6b9d 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(255, 107, 157, 0.2);
+        }
+
+        .safety-card a:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 28px rgba(255, 107, 157, 0.3);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            body {
+                padding: 40px 15px;
+            }
+
+            .safety-header {
+                margin-bottom: 45px;
+            }
+
+            .safety-header h2 {
+                font-size: 2rem;
+            }
+
+            .safety-header p {
+                font-size: 0.95rem;
+            }
+
+            .safety-cards {
+                gap: 20px;
+            }
+
+            .safety-card {
+                padding: 35px 25px;
+                border-radius: 28px;
+            }
+
+            .icon-box {
+                width: 85px;
+                height: 85px;
+                font-size: 40px;
+                margin-bottom: 22px;
+                border-radius: 22px;
+            }
+
+            .safety-card h3 {
+                font-size: 1.2rem;
+            }
+
+            .safety-card p {
+                font-size: 0.88rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .safety-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .safety-header h2 {
+                font-size: 1.6rem;
+            }
+
+            .icon-box {
+                width: 75px;
+                height: 75px;
+                font-size: 35px;
+            }
+
+            .safety-card h3 {
+                font-size: 1.1rem;
+            }
+
+            .safety-card p {
+                font-size: 0.85rem;
+            }
+
+            .safety-card {
+                padding: 30px 20px;
+            }
+        }
+
+        /* Accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Section Header -->
+        <div class="safety-header">
+            <h2>Travel Safety Essentials</h2>
+            <p>Stay safe and prepared on every adventure with our expert safety guidance</p>
+        </div>
+
+        <!-- Safety Cards Grid -->
+        <div class="safety-cards">
+            <!-- Card 1: Preparation -->
+            <div class="safety-card">
+                <div class="icon-box">🎒</div>
+                <h3>Preparation</h3>
+                <p>Plan your trip meticulously. Check weather conditions, research your destination, and prepare all necessary documents and gear.</p>
+                <a href="#learn-more">Learn More</a>
+            </div>
+
+            <!-- Card 2: Health & Safety -->
+            <div class="safety-card">
+                <div class="icon-box">🏥</div>
+                <h3>Health & Safety</h3>
+                <p>Carry a first aid kit, stay hydrated, and know basic emergency procedures. Travel insurance is always recommended.</p>
+                <a href="#learn-more">Learn More</a>
+            </div>
+
+            <!-- Card 3: Communication -->
+            <div class="safety-card">
+                <div class="icon-box">📱</div>
+                <h3>Communication</h3>
+                <p>Keep your devices charged, download offline maps, and share your itinerary with trusted contacts before departing.</p>
+                <a href="#learn-more">Learn More</a>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="main.js"></script>
+</html>

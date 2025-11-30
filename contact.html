@@ -1,0 +1,225 @@
+<!doctype html>
+
+<!DOCTYPE html>
+<html lang="az">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Bizimlə Əlaqə — TripO</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+            /* Dark blue for form text */
+            .form-dark-blue {
+              color: #143a5a !important;
+              text-shadow: none;
+              transition: color 0.2s;
+            }
+        /* Plain white text effect */
+        .plain-white {
+          color: #fff !important;
+          text-shadow: none;
+          transition: color 0.2s;
+        }
+    body {
+      background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1500&q=80') center center/cover no-repeat fixed;
+      font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+      min-height: 100vh;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .contact-wrapper {
+      max-width: 900px;
+      width: 100%;
+      background: rgba(67,206,162,0.18);
+      box-shadow: 0 18px 60px rgba(67,206,162,0.10);
+      border-radius: 24px;
+      backdrop-filter: blur(16px);
+      padding: 3.5rem 2.5rem;
+      display: flex;
+      flex-direction: row;
+      gap: 2.5rem;
+    }
+    .contact-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-width: 280px;
+    }
+    .contact-info h2 {
+      font-size: 2.1rem;
+      color: #009e3c;
+      margin-bottom: 1.1rem;
+      font-family: 'Segoe UI', 'Inter', Arial, sans-serif;
+      letter-spacing: 1px;
+    }
+    .contact-info p {
+      font-size: 1.08rem;
+      color: #009e3c;
+      margin-bottom: 2rem;
+    }
+    .contact-details {
+      margin-bottom: 2rem;
+    }
+    .contact-details .item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      font-size: 1.05rem;
+      color: #009e3c;
+    }
+    .contact-details .item i {
+      font-size: 1.25rem;
+      color: #009e3c;
+    }
+    .contact-social {
+      display: flex;
+      gap: 1.1rem;
+      margin-top: 1.2rem;
+    }
+    .contact-social a {
+      background: rgba(253,160,85,0.18);
+      color: #FDA055 !important;
+      box-shadow: none;
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.35rem;
+      transition: box-shadow 0.3s, transform 0.3s;
+      text-decoration: none;
+      border: none;
+    }
+    .contact-social a:hover {
+      box-shadow: none;
+      transform: translateY(-2px) scale(1.12);
+    }
+    .contact-form {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-width: 280px;
+    }
+    .contact-form form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+    }
+    .contact-form .form-group label {
+      font-weight: 600;
+      color: #009e3c;
+      margin-bottom: 0.5rem;
+      font-size: 1.05rem;
+    }
+    .contact-form .form-group input,
+    .contact-form .form-group textarea {
+      width: 100%;
+      padding: 0.9rem;
+      border-radius: 10px;
+      border: 1px solid #43cea2;
+      font-size: 1.05rem;
+      background: rgba(255,255,255,0.85);
+      color: #009e3c;
+      transition: border 0.3s;
+    }
+    .contact-form .form-group input:focus,
+    .contact-form .form-group textarea:focus {
+      border-color: #185a9d;
+      outline: none;
+    }
+    .contact-form button {
+      background: linear-gradient(90deg,#8B5C2A 0%, #A67C52 100%);
+      color: #fff;
+      font-weight: 700;
+      font-size: 1.12rem;
+      border: none;
+      border-radius: 12px;
+      padding: 1rem 0;
+      box-shadow: 0 8px 20px rgba(139,92,42,0.12);
+      cursor: pointer;
+      transition: box-shadow 0.3s, transform 0.3s;
+      width: 100%;
+      margin-top: 0.5rem;
+    }
+    .contact-form button:hover {
+      box-shadow: 0 18px 40px #43cea21f;
+      transform: translateY(-2px) scale(1.04);
+    }
+    @media (max-width: 900px) {
+      .contact-wrapper { flex-direction: column; gap: 2rem; padding: 2rem 1rem; }
+      .contact-info, .contact-form { min-width: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="contact-wrapper">
+    <div class="contact-info">
+      <a href="index.html" class="return-home-btn" title="Ana səhifəyə qayıt">
+        <i class="fas fa-home"></i> Ana səhifəyə qayıt
+      </a>
+      <h2 class="plain-white">Bizimlə Əlaqə</h2>
+      <p class="plain-white">Sualınız var? Komandamız sizə kömək etmək üçün həmişə hazırdır. Lüks səyahət təcrübəsi üçün bizimlə əlaqə saxlayın.</p>
+      <div class="contact-details">
+        <div class="item plain-white"><i class="fas fa-map-marker-alt plain-white"></i><div><strong class="plain-white">Ünvan</strong><br class="plain-white">Bakı, Azərbaycan</div></div>
+        <div class="item plain-white"><i class="fas fa-phone plain-white"></i><div><strong class="plain-white">Telefon</strong><br class="plain-white">+994 12 345 67 89</div></div>
+        <div class="item plain-white"><i class="fas fa-envelope plain-white"></i><div><strong class="plain-white">E-poçt</strong><br class="plain-white">info@elitetravel.az</div></div>
+      </div>
+      <div class="contact-social">
+        <a href="https://facebook.com" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://instagram.com" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://twitter.com" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a>
+        <a href="https://youtube.com" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
+        <a href="https://wa.me/994123456789" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://t.me/elitetravel" target="_blank" title="Telegram"><i class="fab fa-telegram"></i></a>
+      </div>
+    </div>
+    <div class="contact-form">
+      <form id="contactForm">
+        <div class="form-group"><label for="name" class="form-dark-blue">Adınız</label><input type="text" id="name" required class="form-dark-blue"></div>
+        <div class="form-group"><label for="email" class="form-dark-blue">E-poçt</label><input type="email" id="email" required class="form-dark-blue"></div>
+        <div class="form-group"><label for="subject" class="form-dark-blue">Mövzu</label><input type="text" id="subject" required class="form-dark-blue"></div>
+        <div class="form-group"><label for="message" class="form-dark-blue">Mesaj</label><textarea id="message" rows="5" required class="form-dark-blue"></textarea></div>
+        <button type="submit"><i class="fas fa-paper-plane"></i> Göndər</button>
+      </form>
+        </a>
+        <style>
+          .return-home-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin: 0 0 1.2rem 0;
+            width: 100%;
+            max-width: 180px;
+            background: linear-gradient(90deg,#8B5C2A 0%, #A67C52 100%);
+            color: #fff;
+            font-weight: 600;
+            font-size: 0.92rem;
+            border: none;
+            border-radius: 10px;
+            padding: 0.55rem 0.3rem;
+            box-shadow: 0 2px 8px rgba(139,92,42,0.10);
+            text-decoration: none;
+            transition: box-shadow 0.3s, transform 0.3s;
+          }
+          .return-home-btn i {
+            font-size: 1rem;
+            color: #fff;
+            margin-right: 0.3rem;
+          }
+          .return-home-btn:hover {
+            box-shadow: 0 4px 16px #A67C5244;
+            transform: translateY(-2px) scale(1.04);
+          }
+        </style>
+    </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="az">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Giriş / Qeydiyyat — Elite Travel</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #0f2540;
+      --gold: #d4af37;
+      --gray: #6b7280;
+      --light: #f9f9f9;
+      --border: #e5e7eb;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #fff;
+      color: var(--navy);
+      min-height: 100vh;
+    }
+
+    /* Fixed Minimal Header */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 80px;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(15,37,64,0.08);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .logo {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--navy);
+      text-decoration: none;
+    }
+    .logo span { color: var(--gold); }
+
+    /* Main Layout: Hero Left + Login Right */
+    .auth-container {
+      display: grid;
+      grid-template-columns: 1fr 440px;
+      gap: 80px;
+      align-items: center;
+      min-height: 100vh;
+      padding: 100px 40px 80px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 992px) {
+      .auth-container {
+        grid-template-columns: 1fr;
+        padding: 100px 20px 60px;
+        text-align: center;
+      }
+    }
+
+    /* Left Hero */
+    .hero {
+      max-width: 560px;
+    }
+    .hero h1 {
+      font-size: 42px;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 20px;
+    }
+    .hero p {
+      font-size: 18px;
+      color: var(--gray);
+      margin-bottom: 32px;
+      line-height: 1.6;
+    }
+    .hero-image {
+      width: 100%;
+      height: 480px;
+      border-radius: 1px solid rgba(0,0,0,0.05);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(11,28,50,0.12);
+    }
+    .hero-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Right: Trendyol-Style Login Card */
+    .login-card {
+      background: white;
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+      border: 1px solid var(--border);
+      height: fit-content;
+    }
+    .login-card h2 {
+      font-size: 26px;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+    .login-card > p {
+      text-align: center;
+      color: var(--gray);
+      font-size: 15px;
+      margin-bottom: 32px;
+    }
+
+    .tabs {
+      display: flex;
+      background: #f8f9fa;
+      border-radius: 14px;
+      padding: 6px;
+      margin-bottom: 28px;
+    }
+    .tab {
+      flex: 1;
+      padding: 14px;
+      text-align: center;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .tab.active {
+      background: white;
+      color: var(--gold);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      font-size: 14px;
+    }
+    input {
+      width: 100%;
+      padding: 16px 18px;
+      border: 1.8px solid #ddd;
+      border-radius: 14px;
+      font-size: 16px;
+      transition: all 0.3s;
+    }
+    input:focus {
+      outline: none;
+      border-color: var(--gold);
+      box-shadow: 0 0 0 4px rgba(212,175,55,0.15);
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 17px;
+      background: linear-gradient(90deg, #fda085, var(--gold));
+      color: center;
+      color: #111;
+      font-weight: 700;
+      font-size: 16px;
+      border: none;
+      border-radius: 14px;
+      cursor: pointer;
+      margin: 16px 0;
+      transition: all 0.3s;
+    }
+    .submit-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(212,175,55,0.35);
+    }
+
+    .divider {
+      text-align: center;
+      margin: 28px 0;
+      color: #999;
+      font-size: 14px;
+      position: relative;
+    }
+    .divider::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0; right: 0;
+      height: 1px;
+      background: #eee;
+    }
+    .divider span {
+      background: white;
+      padding: 0 20px;
+    }
+
+    .social-btn {
+      width: 100%;
+      padding: 15px;
+      border: 1.8px solid #ddd;
+      border-radius: 14px;
+      background: white;
+      font-weight: 600;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-bottom: 12px;
+    }
+    .social-btn:hover {
+      border-color: #333;
+      background: #f8f9fa;
+    }
+    .social-btn.apple {
+      background: #000;
+      color: white;
+      border-color: #000;
+    }
+
+    .terms {
+      font-size: 13px;
+      color: #777;
+      text-align: center;
+      margin-top: 20px;
+      line-height: 1.5;
+    }
+    .terms a { color: var(--gold); text-decoration: none; }
+
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--gray);
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Minimal Header -->
+  <header>
+    <a href="index.html" class="logo">Elite<span>Travel</span></a>
+  </header>
+
+  <!-- Hero Left + Login Right -->
+  <div class="auth-container">
+    <!-- Left: Hero -->
+    <div class="hero">
+      <h1>Dağların sehrinə atılın</h1>
+      <p>Azərbaycanın ən gözəl dağlıq ərazilərinə professional bələdçilərlə səyahət edin. Təhlükəsiz, rahat və unudulmaz təcrübə.</p>
+      <div class="hero-image">
+        <img src="https://images.unsplash.com/photo-photo-1501785888041-af3ef285b470?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Şahdağ">
+      </div>
+    </div>
+
+    <!-- Right: Trendyol-Style Login Card -->
+    <div class="login-card">
+      <h2>Xoş gəldiniz</h2>
+      <p>Hesabınıza daxil olun və ya yeni üzv olun</p>
+
+      <div class="tabs">
+        <div class="tab active" data-form="login">Giriş et</div>
+        <div class="tab" data-form="register">Qeydiyyat</div>
+      </div>
+
+      <!-- Login Form -->
+      <form id="login" class="auth-form active">
+        <div class="form-group">
+          <label>E-poçt və ya telefon</label>
+          <input type="text" placeholder="example@gmail.com" required>
+        </div>
+        <div class="form-group">
+          <label>Şifrə</label>
+          <input type="password" placeholder="••••••••" required>
+        </div>
+        <button type="submit" class="submit-btn">DAXİL OL</button>
+      </form>
+
+      <!-- Register Form -->
+      <form id="register" class="auth-form">
+        <div class="form-group">
+          <label>Ad Soyad</label>
+          <input type="text" placeholder="Adınız və soyadınız" required>
+        </div>
+        <div class="form-group">
+          <label>E-poçt</label>
+          <input type="email" placeholder="example@gmail.com" required>
+        </div>
+        <div class="form-group">
+          <label>Şifrə (ən az 6 simvol)</label>
+          <input type="password" placeholder="••••••••" required>
+        </div>
+        <button type="submit" class="submit-btn">QEYDİYYATDAN KEÇ</button>
+        <div class="terms">
+          Qeydiyyatla <a href="#">İstifadə şərtləri</a>ni qəbul edirəm
+        </div>
+      </form>
+
+      <div class="divider"><span>və ya</span></div>
+
+      <div>
+        <button class="social-btn google">
+          <svg width="20" height="20" viewBox="0 0 24 24">...Google SVG...</svg>
+          Google ilə davam et
+        </button>
+        <button class="social-btn apple">
+          Apple ilə davam et
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    © 2025 Elite Travel • +994 12 345 67 89
+  </footer>
+
+<script>
+  // Tab switching
+  document.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById(tab.dataset.form).classList.add('active');
+    });
+  });
+
+  // Form submit simulation
+  document.querySelectorAll('form').forEach(form => {
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      alert('Uğurla daxil oldunuz!');
+      window.location.href = 'index.html';
+    });
+  });
+</script>
+</body>
+</html>

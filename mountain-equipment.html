@@ -1,0 +1,728 @@
+<!doctype html>
+<html lang="az">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dağ Səyahəti Avadanlığı — EliteTravel</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    :root {
+      --navy: #0f2540;
+      --forest: #1f6f52;
+      --cream: #fef7ef;
+      --gold: black;
+      --stone: #6b7280;
+      --white: #ffffff;
+      --accent: black
+      --glass: rgba(255,255,255,0.7);
+      --header-height: 96px;
+      --radius: 18px;
+      --shadow: 0 8px 32px rgba(15,37,64,0.13);
+    }
+    body {
+      background-color: var(--cream);
+      background-repeat:no-repeat;
+      color: var(--navy);
+      font-family: 'Poppins', Inter, Arial, sans-serif;
+      position: relative;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      left: 0; right: 0; top: 0; bottom: 0;
+      z-index: 0;
+      pointer-events: none;
+      background: url('https://svgshare.com/i/15uA.svg') center bottom/cover no-repeat;
+      opacity: 0.18;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      position: relative;
+      z-index: 2;
+    }
+    .mountain-header {
+      text-align: center;
+      margin-bottom: 3.2rem;
+      position: relative;
+      z-index: 2;
+    }
+    .mountain-header h1 {
+      font-family: 'Poppins', 'Inter', Arial, sans-serif;
+      font-size: 2.8rem;
+      color: #fda085;
+      font-weight: 800;
+      letter-spacing: 1.2px;
+      margin-bottom: 0.5rem;
+      text-shadow: 0 6px 32px #fda08544;
+    }
+    .mountain-header p {
+      color: #6b7280;
+      font-size: 1.22rem;
+      margin-bottom: 2.8rem;
+      font-weight: 500;
+      letter-spacing: 0.2px;
+      opacity: 0.85;
+      font-family: 'Inter', Arial, sans-serif;
+    }
+    .equipment-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px,1fr));
+      background-color: var(--cream);
+      gap: 2.8rem;
+      margin-top: 2.2rem;
+      animation: fadeUp 1.1s;
+      position: relative;
+      z-index: 2;
+      padding-bottom: 2rem;
+    }
+    .equipment-item-card {
+      background-color: var(--cream);
+      border-radius: 32px;
+      box-shadow: 0 8px 32px 0 rgba(253,160,133,0.10), 0 2px 24px 0 rgba(245,214,101,0.08);
+      padding: 2.7rem 2rem 2rem 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: transform 0.22s cubic-bezier(.2,.9,.2,1), box-shadow 0.22s;
+      position: relative;
+      cursor: pointer;
+      border: 1.5px solid #fda08533;
+      opacity: 0;
+      animation: fadeUp 0.7s forwards;
+      animation-delay: 0.2s;
+      backdrop-filter: blur(8px);
+      min-height: 340px;
+    }
+    .equipment-item-card:hover {
+      transform: translateY(-8px) scale(1.03);
+      box-shadow: 0 16px 48px #fda08544, 0 2px 32px #f5d66544;
+      background: linear-gradient(120deg,#fda085 0%, #f6d365 100%);
+      border-color: #fda085;
+    }
+    .equipment-icon {
+      font-size: 3.2rem;
+      margin-bottom: 1.3rem;
+      color: #fff;
+      background: linear-gradient(135deg,#fda085 0%, #ffd600 100%);
+      border-radius: 50%;
+      padding: 1.1rem 1.3rem;
+      box-shadow: 0 4px 24px #fda08544;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .equipment-title {
+      font-size: 1.32rem;
+      font-weight: 700;
+      color: #d46f00;
+      margin-bottom: 0.6rem;
+      letter-spacing: 0.7px;
+      text-align: center;
+      font-family: 'Poppins', 'Inter', Arial, sans-serif;
+    }
+    .equipment-description {
+      font-size: 1.08rem;
+      color: #6b7280;
+      margin-bottom: 1.2rem;
+      font-weight: 500;
+      text-align: center;
+      opacity: 0.85;
+      font-family: 'Inter', Arial, sans-serif;
+    }
+    .equipment-btn {
+      margin-top: auto;
+      background: linear-gradient(90deg,#ffd600 0%, #fda085 100%);
+      color: #fff;
+      border-radius: 999px;
+      border: none;
+      font-weight: 600;
+      font-size: 1.08rem;
+      padding: 0.7rem 1.7rem;
+      box-shadow: 0 2px 16px #ffd60044;
+      cursor: pointer;
+      transition: background 0.2s, box-shadow 0.2s, color 0.2s;
+      outline: none;
+      font-family: 'Poppins', 'Inter', Arial, sans-serif;
+    }
+    .equipment-btn:hover {
+      background: linear-gradient(90deg,#fda085 0%, #ffd600 100%);
+      color: #fff;
+      box-shadow: 0 0 24px #ffd60099;
+    }
+    .header-container { display: flex; align-items: center; justify-content: flex-start; gap: 3rem; padding: 0 3.5rem 0 9.5rem; position: relative; min-height: 96px; }
+        .logo { font-size: 2rem; font-weight: 700; color: var(--navy); display:flex; align-items:center; transition: transform 0.25s ease, font-size 0.25s ease; text-decoration: none; letter-spacing: 0.5px; margin-left: -6rem; }
+        .logo:hover { text-decoration: none; }
+        .logo span { color: var(--gold); }
+        nav { flex: 1; margin-left: -2rem; }
+        nav ul { display:flex; list-style:none; justify-content:flex-start; margin-left:0.5rem; }
+        nav ul li { margin-left: 2rem; }
+        nav ul li a { color: var(--navy); text-decoration: none; font-weight: 500; transition: all 0.3s; position: relative; padding: 2px 0; font-size: 1rem; white-space: nowrap; }
+        nav ul li a::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height:2px; background-color: var(--gold); transition: width 0.3s; }
+        nav ul li a:hover::after, nav ul li a.active::after { width: 100%; }
+        .header-actions { display:flex; align-items:center; gap:1.5rem; order:3; }
+        .language-selector { margin-left:0; display:flex; align-items:center; }
+        header .right-actions { position: absolute; right: -8.5rem; top: 40%; transform: translateY(-50%); display:flex; flex-direction:row; gap:1.2rem; align-items:center; }
+
+        /* Fix button sizing so they don't grow horizontally; keep stacked vertically */
+        .right-actions .btn { width:120px; justify-content:center; }
+         @media (max-width:768px) {
+            .right-actions { position: static; transform: none; flex-direction: row; gap: 0.5rem; }
+            .right-actions .btn { width: auto; }
+        }
+        .language-menu { position: absolute; top: 100%; right: 0; background: var(--white); border: 1px solid rgba(15,37,64,0.1); border-radius: 8px; min-width: 150px; display: none; flex-direction: column; z-index: 999; box-shadow: 0 8px 20px rgba(11,28,50,0.06); }
+        .language-selector:hover .language-menu, .language-menu.show { display: flex; }
+        .lang-option { background: transparent; border: none; padding: 0.75rem 1rem; text-align: left; cursor: pointer; color: var(--navy); font-weight: 500; transition: all 0.2s; font-size: 0.9rem; }
+        .lang-option:hover { background: rgba(15,37,64,0.05); color: var(--gold); }
+        .lang-option.active { background: rgba(212,175,55,0.1); color: var(--gold); }
+        body.dark-mode .language-menu { background: var(--white); border-color: rgba(255,255,255,0.1); }
+            body.dark-mode {
+                  body.dark {
+                    --navy: #e6eef8;
+                    --forest: #2fa076;
+                    --cream: #071428;
+                    --gold: #d4af37;
+                    --stone: #9aa6b2;
+                    --white: #0f2536;
+                    --accent: linear-gradient(90deg,#b68f40 0%, #d4af37 100%);
+                    --glass: rgba(255,255,255,0.04);
+                    background: linear-gradient(180deg,#071428,#081827);
+                    color: var(--navy);
+                  }
+                  body.dark .container,
+                  body.dark .equipment-grid,
+                  body.dark .equipment-item-card,
+                  body.dark .info-panel {
+                    background: var(--white);
+                    color: var(--navy);
+                    border-color: rgba(255,255,255,0.08);
+                  }
+                  body.dark .equipment-title,
+                  body.dark .equipment-description,
+                  body.dark .info-panel-header h2,
+                  body.dark .info-panel-section h3 {
+                    color: var(--navy);
+                  }
+                  body.dark .info-panel-category {
+                    background: var(--gold);
+                    color: var(--navy);
+                  }
+              --navy: #e6eef8;
+              --forest: #2fa076;
+              --cream: #071428;
+              --gold: #d4af37;
+              --stone: #9aa6b2;
+              --white: #0f2536;
+              --accent: linear-gradient(90deg,#b68f40 0%, #d4af37 100%);
+              --glass: rgba(255,255,255,0.04);
+              background: linear-gradient(180deg,#071428,#081827);
+              color: var(--navy);
+            }
+            body.dark-mode .container,
+            body.dark-mode .equipment-grid,
+            body.dark-mode .equipment-item-card,
+            body.dark-mode .info-panel {
+              background: var(--white);
+              color: var(--navy);
+              border-color: rgba(255,255,255,0.08);
+            }
+            body.dark-mode .equipment-title,
+            body.dark-mode .equipment-description,
+            body.dark-mode .info-panel-header h2,
+            body.dark-mode .info-panel-section h3 {
+              color: var(--navy);
+            }
+            body.dark-mode .info-panel-category {
+              background: var(--gold);
+              color: var(--navy);
+            }
+        .btn { padding:0.5rem 1rem; border-radius:30px; font-weight:600; cursor:pointer; transition: all 0.3s; border:none; display:inline-flex; align-items:center; gap:8px; text-decoration: none; font-size:0.9rem; }
+        .btn-primary { background: var(--accent); color: #2b2b2b; box-shadow: 0 8px 20px rgba(253,160,133,0.12); border: none; text-decoration: none; }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 18px 40px #fda0851f; text-decoration: none; }
+        .btn-outline { background-color: transparent; color: var(--navy); border:2px solid rgba(15,37,64,0.08); text-decoration: none; }
+        .btn-outline:hover { background-color: var(--navy); color: var(--white); border-color: transparent; text-decoration: none; }
+        .hero { height: 100vh; background: linear-gradient(rgba(3,37,65,0.45), rgba(3,37,65,0.25)), url('https://images.unsplash.com/photo-1501785888041-af3ef285b470?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80'); background-size: cover; background-position:center; display:flex; align-items:center; color:var(--white); text-align:center; padding-top: calc(var(--header-height) + 10px); }
+        .hero-content { max-width:800px; margin:0 auto; animation: fadeIn 1s ease-out; }
+    /* Info panel premium style */
+    .info-panel {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 420px;
+      max-width: 100vw;
+      height: 100vh;
+      background: var(--cream);
+      color: #000;
+      box-shadow: -8px 0 32px #fda08566, 0 8px 32px #d46f0044;
+      z-index: 120;
+      transform: translateX(100%);
+      transition: transform 0.35s cubic-bezier(.7,.2,.2,1), opacity 0.3s;
+      border-radius: 24px 0 0 24px;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      pointer-events: none;
+      border: 2px solid #fff3e0;
+    }
+    .info-panel.active {
+      transform: none;
+      opacity: 1;
+      pointer-events: auto;
+      animation: fadeUp 0.6s;
+    }
+    .info-panel-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0,0,0,0.22);
+      z-index: 110;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+      backdrop-filter: blur(2px);
+    }
+    .info-panel-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .info-panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem 1.5rem 0.5rem 1.5rem;
+      border-bottom: 1px solid #fff3e0;
+      box-shadow: 0 2px 8px #fda08522;
+    }
+      .info-panel-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.2rem 1.5rem 0.5rem 1.5rem;
+        border-bottom: 1px solid #fff3e0;
+        box-shadow: 0 2px 12px #fda08544;
+        margin-bottom: 0.7rem;
+      }
+    .info-panel-close {
+      background: #fff;
+      color: #d46f00;
+      border: 2px solid #fda085;
+      border-radius: 50%;
+      width: 42px;
+      height: 42px;
+      font-size: 1.4rem;
+      cursor: pointer;
+      box-shadow: 0 2px 12px #fda08544;
+      transition: background 0.2s, color 0.2s, border 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .info-panel-close:hover {
+      background: #d46f00;
+      color: #fff;
+      border-color: #fff;
+    }
+    .info-panel-footer {
+      display: flex;
+      gap: 1rem;
+      justify-content: flex-end;
+      padding: 1rem 1.5rem 1.2rem 1.5rem;
+      border-top: 1px solid #fff3e0;
+      box-shadow: 0 -2px 8px #fda08522;
+    }
+    .info-btn {
+      padding: 0.7rem 1.4rem;
+      border-radius: 12px;
+      border: none;
+      font-weight: 600;
+      font-size: 1.08rem;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s, border 0.2s;
+      box-shadow: 0 2px 8px #fda08522;
+    }
+    .info-btn-primary {
+      background: linear-gradient(90deg,#fda085 0%, #d46f00 100%);
+      color: #fff;
+      border: 2px solid #fff3e0;
+    }
+    .info-btn-primary:hover {
+      background: linear-gradient(90deg,#d46f00 0%, #fda085 100%);
+      color: #fff;
+      border-color: #fff;
+    }
+    .info-btn-secondary {
+      background: #fff;
+      color: #d46f00;
+      border: 2px solid #d46f00;
+    }
+    .info-btn-secondary:hover {
+      background: #fda085;
+      color: #fff;
+      border-color: #fff;
+    }
+    .info-panel-content {
+      margin-bottom: 1.2rem;
+      padding: 0 1.5rem;
+      flex: 1;
+      overflow-y: auto;
+    }
+      .info-panel-content { margin-bottom: 1.2rem; padding: 0 1.5rem; }
+    .info-panel-icon {
+      font-size: 2.2rem;
+      background: #fff;
+      color: #d46f00;
+      border-radius: 50%;
+      padding: 0.5rem 0.9rem;
+      box-shadow: 0 2px 8px #fda08544;
+      display: inline-block;
+      margin-bottom: 0.7rem;
+      border: 2px solid #fda085;
+    }
+    .info-panel-features span {
+      background: #fff;
+      color: #d46f00;
+      border-radius: 8px;
+      padding: 0.35rem 0.9rem;
+      font-size: 0.97rem;
+      font-weight: 600;
+      box-shadow: 0 2px 8px #fda08522;
+      margin-right: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .info-panel-tips {
+      background: #d46f00;
+      color: #fff;
+      border-radius: 8px;
+      padding: 0.5rem 1rem;
+      font-weight: 600;
+      box-shadow: 0 2px 8px #d46f0044;
+    }
+    .info-panel-header h2 {
+      color: #000;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+    .info-panel-category {
+      background: black;
+      color: #fff;
+      border-radius: 8px;
+      padding: 0.25rem 0.8rem;
+      font-weight: 500;
+      display: inline-block;
+      margin-bottom: 0.7rem;
+    }
+    .info-panel-section h3 {
+      color: #000;
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+    .info-panel-content {
+      margin-bottom: 1.2rem;
+    }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+  </style>
+</head>
+<body>
+    <!-- Reusable Modern Header -->
+     <header>
+        <div class="container header-container">
+            <a href="index.html" class="logo"><svg width="28" height="20" viewBox="0 0 24 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right:8px"><path d="M1 14L8 3l5 9 4-6 5 9H1z" fill="#d4af37"/></svg>Trip<span>O</span></a>
+            <nav>
+                <ul>
+                    <li><a href="index.html" >Ana Səhifə</a></li>
+                    <li><a href="mountain-equipment.html" class="active">Avadanlıq</a></li>
+                    <li><a href="outfit.html">Geyim Seçici</a></li>
+                    <li><a href="safety.html">Təhlükəsizlik</a></li>
+                    <!-- Travel Assistant removed per request -->
+                </ul>
+            </nav>
+            <div class="header-actions">
+                
+               
+                <a href="auth.html" class="btn btn-primary start-journey-btn">
+                    <i class="fas fa-rocket"></i> Səyahətə Başla
+                </a>
+            </div>
+        </div>
+    </header>
+    <style>
+      .et-header {
+        position: sticky;
+        top: 0;
+        width: 100%;
+        z-index: 100;
+        background: rgba(15,37,64,0.82);
+        backdrop-filter: blur(12px);
+        box-shadow: 0 4px 24px rgba(15,37,64,0.13);
+        border-radius: 0 0 18px 18px;
+      }
+      .et-header-inner {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.5rem 1.5rem;
+        min-height: 72px;
+      }
+      .et-logo {
+        display: flex;
+        align-items: center;
+        gap: 0.7rem;
+        text-decoration: none;
+      }
+      .et-logo-text {
+        font-family: 'Poppins', Inter, Arial, sans-serif;
+        font-weight: 700;
+        font-size: 1.45rem;
+        color: #fff;
+        letter-spacing: 0.5px;
+      }
+      .et-logo-accent {
+        color: #FFD600;
+        font-weight: 700;
+      }
+      .et-nav ul {
+        display: flex;
+        gap: 2.2rem;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      .et-nav a {
+        color: #f5f6fa;
+        text-decoration: none;
+        font-size: 1.08rem;
+        font-weight: 500;
+        position: relative;
+        padding: 2px 0;
+        transition: color 0.18s;
+      }
+      .et-nav a.active {
+        color: #FFD600;
+      }
+      .et-nav a.active::after {
+        content: '';
+        display: block;
+        height: 3px;
+        width: 100%;
+        background: linear-gradient(90deg,#FFD600 0%, #fff 100%);
+        box-shadow: 0 0 8px #FFD600, 0 0 16px #fff;
+        border-radius: 2px;
+        margin-top: 4px;
+        animation: et-glow 1.2s infinite alternate;
+      }
+      @keyframes et-glow {
+        from { box-shadow: 0 0 8px #FFD600, 0 0 16px #fff; }
+        to { box-shadow: 0 0 16px #FFD600, 0 0 32px #fff; }
+      }
+      .et-nav a:hover {
+        color: #FFD600;
+      }
+      .et-actions {
+        display: flex;
+        align-items: center;
+        gap: 1.1rem;
+      }
+      .et-theme-toggle {
+        background: none;
+        border: none;
+        color: #FFD600;
+        font-size: 1.25rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 0.2rem;
+        transition: color 0.18s;
+      }
+      .et-theme-toggle:hover { color: #fff; }
+      .et-lang-selector {
+        position: relative;
+      }
+      .et-lang-btn {
+        background: rgba(255,255,255,0.08);
+        color: #FFD600;
+        border: none;
+        border-radius: 8px;
+        padding: 0.4rem 1rem;
+        font-weight: 600;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background 0.18s;
+      }
+      .et-lang-btn:hover { background: #FFD600; color: #0f2540; }
+      .et-cta-btn {
+        background: linear-gradient(90deg,#FFD600 0%, #fda085 100%);
+        color: #0f2540;
+        font-weight: 700;
+        border-radius: 14px;
+        padding: 0.7rem 1.5rem;
+        font-size: 1.08rem;
+        text-decoration: none;
+        box-shadow: 0 2px 12px #FFD60044;
+        border: none;
+        transition: background 0.18s, color 0.18s;
+      }
+      .et-cta-btn:hover {
+        background: linear-gradient(90deg,#fda085 0%, #FFD600 100%);
+        color: #fff;
+      }
+      .et-mobile-menu-toggle {
+        display: none;
+        background: none;
+        border: none;
+        color: #FFD600;
+        font-size: 1.7rem;
+        margin-left: 1.2rem;
+        cursor: pointer;
+      }
+      @media (max-width: 900px) {
+        .et-header-inner {
+          flex-wrap: wrap;
+          gap: 1.2rem;
+          padding: 0.5rem 0.7rem;
+        }
+        .et-nav ul {
+          gap: 1.2rem;
+        }
+      }
+      @media (max-width: 700px) {
+        .et-header-inner {
+          flex-direction: row;
+          min-height: 62px;
+        }
+        .et-nav {
+          display: none;
+        }
+        .et-mobile-menu-toggle {
+          display: block;
+        }
+      }
+    </style>
+
+  <main class="mountain-section">
+    <div class="container">
+      <div class="mountain-header">
+        <h1>⛰️ Dağ Səyahəti Avadanlığı</h1>
+        <p>Dağlara çıxmaq üçün lazım olan əsas avadanlıqlar. Hər element təhlükəsizliyiniz və rahatlığınız üçün seçilib.</p>
+      </div>
+
+      <div class="equipment-grid" id="equipmentGrid"></div>
+    </div>
+  </main>
+
+  <div class="info-panel-overlay" id="infoPanelOverlay"></div>
+  <div class="info-panel" id="infoPanel">
+    <div class="info-panel-header">
+      <h2 class="info-panel-title" id="infoPanelTitle">Avadanlıq</h2>
+      <button class="info-panel-close" id="infoPanelClose"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="info-panel-content">
+      <div class="info-panel-icon" id="infoPanelIcon">🎒</div>
+      <div class="info-panel-category" id="infoPanelCategory">Kateqoriya</div>
+      <div class="info-panel-section">
+        <h3>Təsvir</h3>
+        <p id="infoPanelDescription">Təsvir buraya gələcək</p>
+      </div>
+      <div class="info-panel-section">
+        <h3>Xüsusiyyətlər</h3>
+        <div class="info-features" id="infoPanelFeatures"></div>
+      </div>
+      <div class="info-panel-section">
+        <h3>Məsləhətlər</h3>
+        <p id="infoPanelTips">İpuçları buraya gələcək</p>
+      </div>
+    </div>
+    <div class="info-panel-footer">
+      <button class="info-btn info-btn-secondary" id="infoPanelCloseBtn">Bağla</button>
+    </div>
+  </div>
+
+    <script src="main.js"></script>
+  <script src="i18n.js"></script>
+  <script src="main.js"></script>
+  <script>
+    const equipmentDatabase = [
+      { id:1, title:'Yürüş Sırt Çantası', icon:'🎒', category:'Daşıyıcı', description:'Ergonomik və dayanıqlı sırt çantası', fullDescription:'Yüksək keyfiyyətli material, bel dəstəyi, 50-70L tutum.', features:['Erqonomik omuz dəstəyi','Suya davamlı material','Çoxlu ciblər'], tips:'Ağır əşyaları aşağı yerləşdirin.' },
+      { id:2, title:'Trekking Ayaqqabıları', icon:'🥾', category:'Ayaq', description:'Daşlı və çətin terren üçün ayaqqabı', fullDescription:'Anti-sürüşmə taban, suya davamlı.', features:['Anti-sürüşmə taban','Suya davamlı'], tips:'Düzgün ölçü seçin.' },
+      { id:3, title:'İsti Qatlı Paltar', icon:'🧥', category:'Paltar', description:'Termal + orta + xarici qat sistemi', fullDescription:'Qatlı sistem nəm və soyuqdan qoruyur.', features:['Termal qat','Fleece orta','Su keçirməz xarici qat'], tips:'Qatlarınızı havaya görə ayarlayın.' },
+      { id:4, title:'Suya Davamlı Jaket', icon:'🌧️', category:'Paltar', description:'Yağış və küləkdən qoruyan jaket', fullDescription:'Seam-sealed, kapüşonlu, yüngül.', features:['Seam-sealed','Kapüşon','Yüngül'], tips:'Həmişə çantanızda saxlayın.' },
+      { id:5, title:'İlk Yardım', icon:'🩹', category:'Təhlükəsizlik', description:'Əsas tibbi dəst', fullDescription:'Sarğılar, dezinfektant, ağrı kəsicilər.', features:['Sarğı','Dezinfektant','Ağrı kəsici'], tips:'Əşyaların müddətini yoxlayın.' },
+      { id:6, title:'Naviqasiya Alətləri', icon:'🧭', category:'Naviqasiya', description:'Xəritə, kompas, GPS', fullDescription:'Yenilənmiş xəritə və etibarlı kompas.', features:['Xəritə','Kompas','GPS'], tips:'Ehtiyat batareya götürün.' },
+      { id:7, title:'Başlıq Fənəri', icon:'🔦', category:'İşıq', description:'LED başlıq fənəri', fullDescription:'Uzun batareya ömrü, suya davamlı', features:['LED','Uzun batareya','Suya davamlı'], tips:'Ehtiyat batareya götürün.' },
+      { id:8, title:'Qida və Su', icon:'🥗', category:'Qida', description:'Yüksək enerjili qidalar və su', fullDescription:'Enerji barlar, su filtri.', features:['Enerji barlar','Su filtri','Kompakt'], tips:'Günə kifayət qədər su planlayın.' },
+      { id:9, title:'Çadır və Yatış Torbası', icon:'⛺', category:'Konaqlama', description:'Hafif çadır və istilik torbası', fullDescription:'Su keçirməz, yüngül və kompakt.', features:['Hafif','Su keçirməz','Kompakt paket'], tips:'Düz və təhlükəsiz yer seçin.' },
+      { id:10, title:'Güc Bankası', icon:'🔋', category:'Texnoloji', description:'Telefon və cihazlar üçün powerbank', fullDescription:'Yüksək kapasitə, çoxlu portlar.', features:['20000mAh+','Çoxlu port'], tips:'Tam şarj edin və kabel saxlayın.' },
+      { id:11, title:'Təhlükəsizlik Alətləri', icon:'🔪', category:'Təhlükəsizlik', description:'Düdük, çox məqsədli bıçaq', fullDescription:'Sinyal vermək və təməl alətlər.', features:['Düdük','Multitool','İp'], tips:'İstifadəsini öyrənin.' },
+      { id:12, title:'Higiyena', icon:'🧼', category:'Higiyena', description:'Mini higiyena paketi', fullDescription:'Sabun, diş fırçası, antiseptik.', features:['Sabun','Diş fırçası','Antiseptik'], tips:'Biodegradə edilən məhsullardan istifadə edin.' }
+    ];
+
+    function initializeEquipment() {
+      const grid = document.getElementById('equipmentGrid');
+      grid.innerHTML = equipmentDatabase.map(item => `
+        <div class="equipment-item-card" data-id="${item.id}">
+          <div class="equipment-icon">${item.icon}</div>
+          <h3 class="equipment-title">${item.title}</h3>
+          <p class="equipment-description">${item.description}</p>
+          <button class="equipment-btn"><i class="fas fa-info-circle"></i> Daha Çox</button>
+        </div>
+      `).join('');
+
+      document.querySelectorAll('.equipment-item-card').forEach(card => {
+        card.addEventListener('click', () => {
+          const id = parseInt(card.dataset.id, 10);
+          const item = equipmentDatabase.find(e => e.id === id);
+          if (item) openInfoPanel(item);
+        });
+      });
+    }
+
+    const infoPanel = document.getElementById('infoPanel');
+    const infoPanelOverlay = document.getElementById('infoPanelOverlay');
+    const infoPanelClose = document.getElementById('infoPanelClose');
+    const infoPanelCloseBtn = document.getElementById('infoPanelCloseBtn');
+
+    function openInfoPanel(item) {
+      document.getElementById('infoPanelIcon').textContent = item.icon;
+      document.getElementById('infoPanelTitle').textContent = item.title;
+      document.getElementById('infoPanelCategory').textContent = item.category;
+      document.getElementById('infoPanelDescription').textContent = item.fullDescription;
+      document.getElementById('infoPanelTips').textContent = item.tips;
+
+      const featuresHtml = item.features.map(f => `
+        <div class="info-feature"><span class="info-feature-icon">✓</span><span>${f}</span></div>
+      `).join('');
+      document.getElementById('infoPanelFeatures').innerHTML = featuresHtml;
+
+      infoPanel.classList.add('active');
+      infoPanelOverlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeInfoPanel() {
+      infoPanel.classList.remove('active');
+      infoPanelOverlay.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    // Robust event listeners for close buttons
+    if (infoPanelClose) infoPanelClose.addEventListener('click', closeInfoPanel);
+    if (infoPanelCloseBtn) infoPanelCloseBtn.addEventListener('click', closeInfoPanel);
+    // Fallback: add listeners by class if needed
+    document.querySelectorAll('.info-panel-close').forEach(btn => btn.addEventListener('click', closeInfoPanel));
+    document.querySelectorAll('#infoPanelCloseBtn').forEach(btn => btn.addEventListener('click', closeInfoPanel));
+    if (infoPanelOverlay) infoPanelOverlay.addEventListener('click', closeInfoPanel);
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && infoPanel.classList.contains('active')) closeInfoPanel(); });
+
+    initializeEquipment();
+  </script>
+</body>
+</html>
